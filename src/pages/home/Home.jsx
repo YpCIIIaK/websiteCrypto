@@ -15,12 +15,10 @@ const Home = () => {
     return (
         <div>
             <HeroSection />
-            <FeaturesSection />
             <IntroSection />
-            <EducationSection />
+            <FeaturesSection />
             <CommunitySection />
             <FAQSection />
-            <FinalCTASection />
         </div>
     );
 };

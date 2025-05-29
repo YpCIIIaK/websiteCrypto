@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroui/react": "^2.7.8",
+    "@iconify/react": "^6.0.0",
     "@tailwindcss/vite": "^4.1.4",
     "chart.js": "^4.4.9",
     "framer-motion": "^12.10.5",
