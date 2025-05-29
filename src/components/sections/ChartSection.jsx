@@ -135,7 +135,7 @@ export const ChartSection = () => {
                   backgroundImage: "linear-gradient(to right, #3B82F6, #FFD700)",
               }}
           >
-            Visualize Your Success with AI Charts
+            Visualize Your Progress with charts
           </span>
                 </h2>
                 <p
