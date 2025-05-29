@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import Section from "./section";
+import Section from "./Section";
 
 const CustomAccordion = ({ children, className = "" }) => {
     return <div className={`flex flex-col gap-4 ${className}`}>{children}</div>;
