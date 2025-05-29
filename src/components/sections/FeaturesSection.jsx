@@ -143,7 +143,7 @@ export const FeaturesSection = () => {
                 color: "#93c5fd", // text-blue-400
             }}
         >
-          Возможности
+          Opportunities
         </span>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
                     <span
