@@ -231,14 +231,6 @@ const NavbarComponent = () => {
             <CustomNavbar>
                 <CustomNavbarBrand>
                     <CustomLink to="/" className="flex items-center gap-2">
-                        <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center"
-                            style={{
-                                backgroundImage: "linear-gradient(to bottom right, #3B82F6, #FFD700)", // from-blue-500 to-crypto-accent
-                            }}
-                        >
-                            <Icon icon="lucide:bitcoin" className="text-white" />
-                        </div>
                         <p
                             className="font-bold text-xl"
                             style={{ color: "#FFD700" }} // text-crypto-accent
