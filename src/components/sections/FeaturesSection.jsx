@@ -100,7 +100,7 @@ export const FeaturesSection = () => {
             title: "Cryptocurrency Monitoring",
             description: "Track prices and trends on a different exchanges in real-time with analytics and notifications.",
             tag: "real-time",
-            links: [{ href: "#", text: "binance.com" }],
+            links: [{ href: "/", text: "tickers" }],
         },
         {
             icon: "lucide:history",
@@ -108,7 +108,7 @@ export const FeaturesSection = () => {
             title: "Backtesting",
             description: "Test strategies on historical data and optimize profits with advanced analytics.",
             tag: "strategy",
-            links: [{ href: "#", text: "docs.platform.com" }],
+            links: [{ href: "/backtest", text: "backtest" }],
         },
         {
             icon: "lucide:bot",
@@ -116,7 +116,7 @@ export const FeaturesSection = () => {
             title: "Trading Bots",
             description: "Set up automated trading strategies for 24/7 trading without constant monitoring.",
             tag: "automation",
-            links: [{ href: "#", text: "api.platform.com" }],
+            links: [{ href: "/bots", text: "bots" }],
         },
     ];
 
