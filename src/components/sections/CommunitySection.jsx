@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import Section from "./section";
+import Section from "./Section";
 import LandingCard from "../cards/LandingCardComm.jsx";
 
 const CustomButton = ({ variant = "solid", size = "lg", startContent, children, className = "" }) => {
