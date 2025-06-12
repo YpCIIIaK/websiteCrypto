@@ -24,9 +24,10 @@ const CustomDivider = ({ className = "" }) => {
 
 export const Footer = () => {
     const navLinks = [
-        { text: "Tickers", href: "/" },
+        { text: "Tokens", href: "/tickers" },
         { text: "Backtest", href: "/backtest" },
         { text: "Bots", href: "/bots" },
+        { text: "Pricing", href: "/pricing"}
     ];
 
     const contactLinks = [
@@ -38,8 +39,8 @@ export const Footer = () => {
         <footer
             className="pt-8 pb-6"
             style={{
-                backgroundColor: "rgba(15, 23, 42, 0.4)", // bg-content1/40
-                borderTopColor: "rgba(255, 255, 255, 0.1)", // border-white/10
+                backgroundColor: "#245135", // brand
+                borderTop: "2px solid #183923", // brand-dark
             }}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,7 +55,7 @@ export const Footer = () => {
                         <div className="flex items-center gap-2 mb-4">
               <span
                   className="text-xl font-bold"
-                  style={{ color: "#FFD700" }} // text-crypto-accent
+                  style={{ color: "#22C55E" }} // success
               >
                 Vortan
               </span>
@@ -70,7 +71,7 @@ export const Footer = () => {
                     >
                         <h4
                             className="font-semibold mb-3 text-white"
-                            style={{ color: "#ffffff" }} // text-white
+                            style={{ color: "#fff" }} // text-white
                         >
                             Navigation
                         </h4>
@@ -80,7 +81,7 @@ export const Footer = () => {
                                     <CustomLink
                                         href={link.href}
                                         className="text-sm transition-colors"
-                                        style={{ color: "#ffffff" }} // text-white
+                                        style={{ color: "#fff" }} // text-white
                                         underline="hover"
                                     >
                                         {link.text}
@@ -99,7 +100,7 @@ export const Footer = () => {
                     >
                         <h4
                             className="font-semibold mb-3 text-white"
-                            style={{ color: "#ffffff" }} // text-white
+                            style={{ color: "#fff" }} // text-white
                         >
                             Contact Us
                         </h4>
@@ -109,7 +110,7 @@ export const Footer = () => {
                                     <CustomLink
                                         href={link.href}
                                         className="text-sm transition-colors"
-                                        style={{ color: "#ffffff" }} // text-white
+                                        style={{ color: "#fff" }} // text-white
                                         underline="hover"
                                         isExternal
                                     >
@@ -132,7 +133,7 @@ export const Footer = () => {
                 >
                     <p
                         className="text-sm"
-                        style={{ color: "#ffffff" }} // text-white
+                        style={{ color: "#fff" }} // text-white
                     >
                         © 2025 Vortan. All rights reserved.
                     </p>
@@ -140,7 +141,7 @@ export const Footer = () => {
                         <CustomLink
                             href="#"
                             className="text-sm transition-colors"
-                            style={{ color: "#ffffff" }} // text-white
+                            style={{ color: "#fff" }} // text-white
                             underline="hover"
                         >
                             Terms and Conditions
@@ -148,7 +149,7 @@ export const Footer = () => {
                         <CustomLink
                             href="#"
                             className="text-sm transition-colors"
-                            style={{ color: "#ffffff" }} // text-white
+                            style={{ color: "#fff" }} // text-white
                             underline="hover"
                         >
                             Privacy Policy
@@ -156,7 +157,7 @@ export const Footer = () => {
                         <CustomLink
                             href="#"
                             className="text-sm transition-colors"
-                            style={{ color: "#ffffff" }} // text-white
+                            style={{ color: "#fff" }} // text-white
                             underline="hover"
                         >
                             Cookies

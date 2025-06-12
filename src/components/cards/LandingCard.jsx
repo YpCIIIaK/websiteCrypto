@@ -33,7 +33,7 @@ const LandingCard = ({ tag, title, description, links = [], socialIcons = [] }) 
         {socialIcons.length > 0 && (
             <div className="flex justify-center mt-4 gap-4">
                 {socialIcons.map((icon, index) => (
-                    <SocialIcon key={index} svgPath={icon.svgPath} label={icon.label} />
+                    <SocialIcon key={index} svgPath={icon.svgPath} label={icon.label} color="#22C55E" />
                 ))}
             </div>
         )}

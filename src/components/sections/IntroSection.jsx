@@ -11,16 +11,19 @@ const CustomButton = ({ variant = "solid", size = "lg", startContent, children }
     px-6 min-w-24 h-12 text-base font-medium rounded-2xl
     focus:outline-none focus:ring-0
     hover:opacity-80 active:scale-95
+    shadow-lg
   `;
 
     const variantStyles = {
         solid: {
-            backgroundColor: "#3B82F6", // primary-500
-            color: "#ffffff", // primary-foreground
+            backgroundColor: "var(--success)",
+            color: "#fff",
         },
         flat: {
-            backgroundColor: "rgba(59, 130, 246, 0.1)", // primary-500/10
-            color: "#3B82F6", // primary-500
+            backgroundColor: "rgba(34, 197, 94, 0.10)",
+            color: "var(--success)",
+            fontWeight: "bold",
+            textShadow: "0 1px 2px rgba(36,81,53,0.08)",
         },
     };
 
@@ -30,9 +33,9 @@ const CustomButton = ({ variant = "solid", size = "lg", startContent, children }
             style={variantStyles[variant]}
         >
             {startContent && (
-                <span className="mr-3 [&>svg]:max-w-8">{startContent}</span>
+                <span className="mr-3 [&>svg]:max-w-8 rounded-lg focus:ring-" style={{ color: variant === 'solid' ? '#fff' : 'var(--success)' }}>{startContent}</span>
             )}
-            {children}
+            <span style={variant !== 'solid' ? { color: 'var(--success)', fontWeight: 'bold', textShadow: '0 1px 2px rgba(36,81,53,0.08)', } : {}}>{children}</span>
         </button>
     );
 };
@@ -53,7 +56,9 @@ const CustomCard = ({ className = "", children }) => {
 
 export const IntroSection = () => {
     return (
-        <Section id="intro" className="py-1">
+        <Section id="intro" className="py-1 relative">
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.18)" }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.12)" }}></div>
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <motion.div
                     className="max-w-xl"
@@ -65,23 +70,23 @@ export const IntroSection = () => {
                     <div className="mb-6 flex items-center gap-2">
                         <div
                             className="h-px w-12"
-                            style={{ backgroundColor: "#3B82F6" }} // bg-blue-500 (primary-500)
+                            style={{ backgroundColor: "var(--success)" }}
                         ></div>
                         <span
                             className="font-medium"
-                            style={{ color: "#93c5fd" }} // text-blue-400 (primary-300)
+                            style={{ color: "var(--success)" }}
                         >
               Automation
             </span>
                     </div>
 
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-                        <span style={{ color: "#FFD700" }}>Optimize trading with automation</span> {/* text-crypto-accent */}
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white drop-shadow-lg">
+                        <span style={{ color: "var(--success)" }}>Optimize trading with automation</span>
                     </h2>
 
                     <p
-                        className="text-lg mb-8"
-                        style={{ color: "#d1d5db" }} // text-gray-300
+                        className="text-lg mb-8 text-white drop-shadow"
+                        style={{ color: "#fff" }}
                     >
                         Create bots, test strategies and monitor the market in real time with AI prediction for maximum profit. Our platform provides all the necessary tools for successful trading.
                     </p>
@@ -107,19 +112,19 @@ export const IntroSection = () => {
                         <div className="flex items-start gap-3">
                             <div
                                 className="rounded-lg p-4"
-                                style={{ backgroundColor: "rgba(22, 163, 74, 0.1)" }} // bg-green-500/10
+                                style={{ backgroundColor: "rgba(34, 197, 94, 0.10)" }}
                             >
                                 <Icon
                                     icon="lucide:trending-up"
                                     className="text-xl"
-                                    style={{ color: "#34d399" }} // text-green-400
+                                    style={{ color: '#22C55E' }}
                                 />
                             </div>
                             <div>
                                 <h4 className="font-medium mb-1 text-white">Profit growth</h4>
                                 <p
-                                    className="text-sm"
-                                    style={{ color: "#9ca3af" }} // text-gray-400
+                                    className="text-sm text-white/80"
+                                    style={{ color: "#EAF7F0" }}
                                 >
                                     Increase in ROI by 32%
                                 </p>
@@ -128,19 +133,19 @@ export const IntroSection = () => {
                         <div className="flex items-start gap-3">
                             <div
                                 className="rounded-lg p-4"
-                                style={{ backgroundColor: "rgba(22, 163, 74, 0.1)" }} // bg-green-500/10
+                                style={{ backgroundColor: "rgba(34, 197, 94, 0.10)" }}
                             >
                                 <Icon
                                     icon="lucide:shield"
                                     className="text-xl"
-                                    style={{ color: "#34d399" }} // text-green-400
+                                    style={{ color: '#22C55E' }}
                                 />
                             </div>
                             <div>
                                 <h4 className="font-medium mb-1 text-white">Safety</h4>
                                 <p
-                                    className="text-sm"
-                                    style={{ color: "#9ca3af" }} // text-gray-400
+                                    className="text-sm text-white/80"
+                                    style={{ color: "#EAF7F0" }}
                                 >
                                     Transparency
                                 </p>
@@ -159,7 +164,7 @@ export const IntroSection = () => {
                     <div
                         className="absolute inset-0 rounded-full blur-2xl"
                         style={{
-                            backgroundImage: "radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent)", // bg-gradient-radial from-blue-500/20
+                            backgroundImage: "radial-gradient(circle, rgba(34, 197, 94, 0.2), transparent)",
                         }}
                     ></div>
 
@@ -167,16 +172,16 @@ export const IntroSection = () => {
                         <div className="p-1">
                             <div
                                 className="flex items-center gap-2 px-3 py-2 rounded-md mb-1"
-                                style={{ backgroundColor: "#1E293B" }} // bg-content2
+                                style={{ backgroundColor: "#183923" }}
                             >
                                 <div className="flex gap-1.5">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                    <div className="w-3 h-3 rounded-full bg-danger"></div>
+                                    <div className="w-3 h-3 rounded-full bg-warn"></div>
+                                    <div className="w-3 h-3 rounded-full bg-success"></div>
                                 </div>
                                 <div
-                                    className="text-xs"
-                                    style={{ color: "#9ca3af" }} // text-gray-400
+                                    className="text-xs text-white/80"
+                                    style={{ color: "#EAF7F0" }}
                                 >
                                     trading-bot.js
                                 </div>
@@ -184,52 +189,52 @@ export const IntroSection = () => {
 
                             <div
                                 className="rounded-md p-4 font-mono text-sm"
-                                style={{ backgroundColor: "#1E293B" }} // bg-content2
+                                style={{ backgroundColor: "#183923" }}
                             >
-                                <div style={{ color: "#9ca3af" }}>
-                                    <span style={{ color: "#93c5fd" }}>const</span>{" "}
-                                    <span style={{ color: "#34d399" }}>tradingBot</span> = {"{"}
+                                <div style={{ color: "#EAF7F0" }}>
+                                    <span style={{ color: "var(--accent)" }}>const</span>{" "}
+                                    <span style={{ color: "var(--success)" }}>tradingBot</span> = {"{"}
                                 </div>
                                 <div className="pl-4">
-                                    <span style={{ color: "#a855f7" }}>name</span>:{" "}
-                                    <span style={{ color: "#fef08a" }}>"BTC Trader"</span>,
+                                    <span style={{ color: "var(--accent)" }}>name</span>:{" "}
+                                    <span style={{ color: "var(--warn)" }}>&quot;BTC Trader&quot;</span>,
                                 </div>
                                 <div className="pl-4">
-                                    <span style={{ color: "#a855f7" }}>strategy</span>:{" "}
-                                    <span style={{ color: "#fef08a" }}>"MACD Crossover"</span>,
+                                    <span style={{ color: "var(--accent)" }}>strategy</span>:{" "}
+                                    <span style={{ color: "var(--warn)" }}>&quot;MACD Crossover&quot;</span>,
                                 </div>
                                 <div className="pl-4">
-                                    <span style={{ color: "#a855f7" }}>assets</span>: [
-                                    <span style={{ color: "#fef08a" }}>"BTC"</span>,{" "}
-                                    <span style={{ color: "#fef08a" }}>"ETH"</span>],
+                                    <span style={{ color: "var(--accent)" }}>assets</span>: [
+                                    <span style={{ color: "var(--warn)" }}>&quot;BTC&quot;</span>,{" "}
+                                    <span style={{ color: "var(--warn)" }}>&quot;ETH&quot;</span>],
                                 </div>
                                 <div className="pl-4">
-                                    <span style={{ color: "#a855f7" }}>interval</span>:{" "}
-                                    <span style={{ color: "#fb923c" }}>15</span>,
+                                    <span style={{ color: "var(--accent)" }}>interval</span>:{" "}
+                                    <span style={{ color: "var(--danger)" }}>15</span>,
                                 </div>
                                 <div className="pl-4">
-                                    <span style={{ color: "#93c5fd" }}>async</span>{" "}
-                                    <span style={{ color: "#34d399" }}>execute</span>() {"{"}
+                                    <span style={{ color: "var(--accent)" }}>async</span>{" "}
+                                    <span style={{ color: "var(--success)" }}>execute</span>() {"{"}
                                 </div>
-                                <div className="pl-8" style={{ color: "#d1d5db" }}>
-                                    <span style={{ color: "#93c5fd" }}>await</span>{" "}
-                                    <span style={{ color: "#34d399" }}>analyzeMarket</span>();
+                                <div className="pl-8" style={{ color: "#EAF7F0" }}>
+                                    <span style={{ color: "var(--accent)" }}>await</span>{" "}
+                                    <span style={{ color: "var(--success)" }}>analyzeMarket</span>();
                                 </div>
-                                <div className="pl-8" style={{ color: "#d1d5db" }}>
-                                    <span style={{ color: "#93c5fd" }}>if</span> (signal ==={" "}
-                                    <span style={{ color: "#fef08a" }}>"BUY"</span>) {"{"}
+                                <div className="pl-8" style={{ color: "#EAF7F0" }}>
+                                    <span style={{ color: "var(--accent)" }}>if</span> (signal ==={" "}
+                                    <span style={{ color: "var(--warn)" }}>&quot;BUY&quot;</span>) {"{"}
                                 </div>
-                                <div className="pl-12" style={{ color: "#d1d5db" }}>
-                                    <span style={{ color: "#34d399" }}>executeTrade</span>(type:{" "}
-                                    <span style={{ color: "#fef08a" }}>"BUY"</span>);
+                                <div className="pl-12" style={{ color: "#EAF7F0" }}>
+                                    <span style={{ color: "var(--success)" }}>executeTrade</span>(type:{" "}
+                                    <span style={{ color: "var(--warn)" }}>&quot;BUY&quot;</span>);
                                 </div>
-                                <div className="pl-8" style={{ color: "#d1d5db" }}>
+                                <div className="pl-8" style={{ color: "#EAF7F0" }}>
                                     {"}"}
                                 </div>
-                                <div className="pl-4" style={{ color: "#d1d5db" }}>
+                                <div className="pl-4" style={{ color: "#EAF7F0" }}>
                                     {"}"}
                                 </div>
-                                <div style={{ color: "#d1d5db" }}>{"}"}</div>
+                                <div style={{ color: "#EAF7F0" }}>{"}"}</div>
                             </div>
                         </div>
                     </CustomCard>

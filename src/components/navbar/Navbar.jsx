@@ -42,17 +42,20 @@ const CustomButton = ({
 
     const variantStyles = {
         solid: {
-            backgroundColor: "#3B82F6", // primary-500
-            color: "#ffffff", // primary-foreground
+            backgroundColor: "var(--success)", // фирменный зелёный
+            color: "#fff",
+            fontWeight: 700,
+            border: 'none',
         },
         flat: {
             backgroundColor: "rgba(59, 130, 246, 0.1)", // primary-500/10
             color: "#3B82F6", // primary-500
         },
         bordered: {
-            backgroundColor: "transparent",
-            border: "2px solid #FFD700", // crypto-accent
-            color: "#ffffff", // white
+            backgroundColor: "#fff",
+            border: "2px solid var(--success)",
+            color: "var(--success)",
+            fontWeight: 700,
         },
         light: {
             backgroundColor: "transparent",
@@ -175,10 +178,10 @@ const CustomDropdownItem = ({ children, startContent, description, key }) => {
 const CustomNavbar = ({ children, className = "" }) => {
     return (
         <nav
-            className={`relative bg-content1/40 backdrop-blur-md border-b border-opacity-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+            className={`relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
             style={{
-                backgroundColor: "rgba(15, 23, 42, 0.4)", // bg-content1/40
-                borderColor: "rgba(255, 255, 255, 0.1)", // border-white/10
+                backgroundColor: "#245135" // brand
+                // borderBottom: "2px solid #183923" // Удалено по просьбе пользователя
             }}
         >
             <div className="flex items-center justify-between h-16">{children}</div>
@@ -233,7 +236,7 @@ const NavbarComponent = () => {
                     <CustomLink to="/" className="flex items-center gap-2">
                         <p
                             className="font-bold text-xl"
-                            style={{ color: "#FFD700" }} // text-crypto-accent
+                            style={{ color: "#22C55E" }} // success
                         >
                             Vortan
                         </p>
@@ -241,35 +244,49 @@ const NavbarComponent = () => {
                 </CustomNavbarBrand>
 
                 <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex z-10">
-                    <CustomNavbarContent className="gap-6" justify="center">
+                    <CustomNavbarContent className="gap-8">
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                to="/tickers"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
-                                Tickers
+                                <Icon icon="lucide:line-chart" className="w-5 h-5" style={{ color: '#fff' }} />
+                                Tokens
                             </CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
                                 to="/backtest"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
+                                <Icon icon="lucide:history" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Backtest
                             </CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
                                 to="/bots"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
+                                <Icon icon="lucide:bot" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Bots
+                            </CustomLink>
+                        </CustomNavbarItem>
+                        <CustomNavbarItem>
+                            <CustomLink
+                                to="/pricing"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
+                                style={{ color: "#d1d5db" }} // text-gray-300
+                                underline="hover"
+                            >
+                                <Icon icon="lucide:credit-card" className="w-5 h-5" style={{ color: '#fff' }} />
+                                Pricing
                             </CustomLink>
                         </CustomNavbarItem>
                     </CustomNavbarContent>
