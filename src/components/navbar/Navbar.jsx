@@ -247,7 +247,7 @@ const NavbarComponent = () => {
                     <CustomNavbarContent className="gap-8">
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/tickers"
+                                to="/"
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
@@ -258,7 +258,7 @@ const NavbarComponent = () => {
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/backtest"
+                                to="/"
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
@@ -269,7 +269,7 @@ const NavbarComponent = () => {
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/bots"
+                                to="/"
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
@@ -284,7 +284,7 @@ const NavbarComponent = () => {
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
-                            >
+                            > 
                                 <Icon icon="lucide:credit-card" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Pricing
                             </CustomLink>
