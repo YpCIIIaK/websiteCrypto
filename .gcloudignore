@@ -16,7 +16,8 @@ eslint.config.js
 tsconfig.json
 jsconfig.json
 
-# Ignore backup and alternative package files
+# Ignore original package files (use package.json.app-engine for deployment)
+package.json
 package-lock.json
 yarn.lock
 package.json.deploy
@@ -61,4 +62,9 @@ __tests__/
 
 # Allow Node.js files needed for App Engine
 !server.js
-!package.json.app-engine 
+!package.json.app-engine
+
+# Explicitly include the dist directory
+!dist/
+!dist/assets/
+!dist/index.html 
