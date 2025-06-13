@@ -42,17 +42,20 @@ const CustomButton = ({
 
     const variantStyles = {
         solid: {
-            backgroundColor: "#3B82F6", // primary-500
-            color: "#ffffff", // primary-foreground
+            backgroundColor: "var(--success)", // фирменный зелёный
+            color: "#fff",
+            fontWeight: 700,
+            border: 'none',
         },
         flat: {
             backgroundColor: "rgba(59, 130, 246, 0.1)", // primary-500/10
             color: "#3B82F6", // primary-500
         },
         bordered: {
-            backgroundColor: "transparent",
-            border: "2px solid #FFD700", // crypto-accent
-            color: "#ffffff", // white
+            backgroundColor: "#fff",
+            border: "2px solid var(--success)",
+            color: "var(--success)",
+            fontWeight: 700,
         },
         light: {
             backgroundColor: "transparent",
@@ -175,10 +178,10 @@ const CustomDropdownItem = ({ children, startContent, description, key }) => {
 const CustomNavbar = ({ children, className = "" }) => {
     return (
         <nav
-            className={`relative bg-content1/40 backdrop-blur-md border-b border-opacity-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+            className={`relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
             style={{
-                backgroundColor: "rgba(15, 23, 42, 0.4)", // bg-content1/40
-                borderColor: "rgba(255, 255, 255, 0.1)", // border-white/10
+                backgroundColor: "#245135" // brand
+                // borderBottom: "2px solid #183923" // Удалено по просьбе пользователя
             }}
         >
             <div className="flex items-center justify-between h-16">{children}</div>
@@ -233,7 +236,7 @@ const NavbarComponent = () => {
                     <CustomLink to="/" className="flex items-center gap-2">
                         <p
                             className="font-bold text-xl"
-                            style={{ color: "#FFD700" }} // text-crypto-accent
+                            style={{ color: "#22C55E" }} // success
                         >
                             Vortan
                         </p>
@@ -241,35 +244,49 @@ const NavbarComponent = () => {
                 </CustomNavbarBrand>
 
                 <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex z-10">
-                    <CustomNavbarContent className="gap-6" justify="center">
+                    <CustomNavbarContent className="gap-8">
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/tickers"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                to="/"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
-                                Tickers
+                                <Icon icon="lucide:line-chart" className="w-5 h-5" style={{ color: '#fff' }} />
+                                Tokens
                             </CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/backtest"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                to="/"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
+                                <Icon icon="lucide:history" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Backtest
                             </CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/bots"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors"
+                                to="/"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
                             >
+                                <Icon icon="lucide:bot" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Bots
+                            </CustomLink>
+                        </CustomNavbarItem>
+                        <CustomNavbarItem>
+                            <CustomLink
+                                to="/pricing"
+                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
+                                style={{ color: "#d1d5db" }} // text-gray-300
+                                underline="hover"
+                            > 
+                                <Icon icon="lucide:credit-card" className="w-5 h-5" style={{ color: '#fff' }} />
+                                Pricing
                             </CustomLink>
                         </CustomNavbarItem>
                     </CustomNavbarContent>
@@ -300,152 +317,6 @@ const NavbarComponent = () => {
                             Register
                         </CustomButton>
                     </CustomNavbarItem>
-
-                    <CustomNavbarItem className="hidden sm:flex">
-                        <CustomDropdown
-                            trigger={
-                                <CustomDropdownTrigger>
-                                    <CustomButton
-                                        variant="flat"
-                                        className="px-3 min-w-0"
-                                        startContent={<Icon icon={selectedLanguage.icon} className="text-lg" />}
-                                        endContent={<Icon icon="lucide:chevron-down" className="text-xs" />}
-                                    >
-                    <span className="sr-only sm:not-sr-only sm:ml-2">
-                      {selectedLanguage.code.toUpperCase()}
-                    </span>
-                                    </CustomButton>
-                                </CustomDropdownTrigger>
-                            }
-                        >
-                            <CustomDropdownMenu>
-                                {languages.map((language) => (
-                                    <CustomDropdownItem
-                                        key={language.code}
-                                        startContent={<Icon icon={language.icon} className="text-lg" />}
-                                        description={language.code.toUpperCase()}
-                                    >
-                                        {language.name}
-                                    </CustomDropdownItem>
-                                ))}
-                            </CustomDropdownMenu>
-                        </CustomDropdown>
-                    </CustomNavbarItem>
-                </CustomNavbarContent>
-
-                <CustomNavbarContent className="md:hidden" justify="end">
-                    <CustomNavbarItem>
-                        <CustomButton
-                            variant="light"
-                            isIconOnly
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        >
-                            <Icon
-                                icon={isMenuOpen ? "lucide:x" : "lucide:menu"}
-                                style={{ color: "#d1d5db" }} // text-gray-300
-                            />
-                        </CustomButton>
-                    </CustomNavbarItem>
-                </CustomNavbarContent>
-
-                <CustomNavbarContent className="md:hidden" justify="start">
-                    <AnimatePresence>
-                        {isMenuOpen && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                exit={{ opacity: 0, height: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="w-full"
-                            >
-                                <div className="flex flex-col gap-2 mt-4 pb-4">
-                                    <CustomLink
-                                        to="/tickers"
-                                        className="w-full py-2 px-3 rounded-lg transition-colors"
-                                        style={{
-                                            color: "#d1d5db", // text-gray-300
-                                            backgroundColor: "rgba(30, 41, 59, 0.5)", // hover:bg-content2/50
-                                        }}
-                                    >
-                                        Tickers
-                                    </CustomLink>
-                                    <CustomLink
-                                        to="/backtest"
-                                        className="w-full py-2 px-3 rounded-lg transition-colors"
-                                        style={{
-                                            color: "#d1d5db", // text-gray-300
-                                            backgroundColor: "rgba(30, 41, 59, 0.5)", // hover:bg-content2/50
-                                        }}
-                                    >
-                                        Backtest
-                                    </CustomLink>
-                                    <CustomLink
-                                        to="/bots"
-                                        className="w-full py-2 px-3 rounded-lg transition-colors"
-                                        style={{
-                                            color: "#d1d5db", // text-gray-300
-                                            backgroundColor: "rgba(30, 41, 59, 0.5)", // hover:bg-content2/50
-                                        }}
-                                    >
-                                        Bots
-                                    </CustomLink>
-
-                                    <div
-                                        className="mt-2 pt-2 border-t"
-                                        style={{ borderColor: "#4b5563" }} // border-gray-700
-                                    >
-                                        <CustomDropdown
-                                            trigger={
-                                                <CustomDropdownTrigger>
-                                                    <CustomButton
-                                                        variant="flat"
-                                                        className="w-full justify-start px-3"
-                                                        startContent={<Icon icon={selectedLanguage.icon} className="text-lg" />}
-                                                        endContent={<Icon icon="lucide:chevron-down" className="text-xs" />}
-                                                    >
-                                                        {selectedLanguage.name}
-                                                    </CustomButton>
-                                                </CustomDropdownTrigger>
-                                            }
-                                        >
-                                            <CustomDropdownMenu>
-                                                {languages.map((language) => (
-                                                    <CustomDropdownItem
-                                                        key={language.code}
-                                                        startContent={<Icon icon={language.icon} className="text-lg" />}
-                                                        description={language.code.toUpperCase()}
-                                                    >
-                                                        {language.name}
-                                                    </CustomDropdownItem>
-                                                ))}
-                                            </CustomDropdownMenu>
-                                        </CustomDropdown>
-                                    </div>
-
-                                    <div className="flex flex-col sm:flex-row gap-2 mt-2">
-                                        <CustomButton
-                                            as={Link}
-                                            variant="solid"
-                                            size="sm"
-                                            to="/login"
-                                            className="font-medium w-full"
-                                        >
-                                            Login
-                                        </CustomButton>
-                                        <CustomButton
-                                            as={Link}
-                                            variant="bordered"
-                                            size="sm"
-                                            to="/register"
-                                            className="font-medium w-full"
-                                        >
-                                            Register
-                                        </CustomButton>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
                 </CustomNavbarContent>
             </CustomNavbar>
         </motion.div>

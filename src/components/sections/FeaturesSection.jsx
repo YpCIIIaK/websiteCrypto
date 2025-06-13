@@ -11,13 +11,14 @@ const CustomButton = ({ variant = "solid", size = "lg", startContent, children, 
     px-6 min-w-24 h-12 text-base font-medium rounded-2xl
     focus:outline-none focus:ring-0
     hover:opacity-80 active:scale-95
+    shadow-lg
     ${className}
   `;
 
     const variantStyles = {
         solid: {
-            backgroundColor: "#3B82F6", // primary-500
-            color: "#ffffff", // primary-foreground
+            backgroundColor: "var(--success)",
+            color: "#fff",
         },
     };
 
@@ -27,18 +28,18 @@ const CustomButton = ({ variant = "solid", size = "lg", startContent, children, 
             style={variantStyles[variant]}
         >
             {startContent && (
-                <span className="mr-3 [&>svg]:max-w-8">{startContent}</span>
+                <span className="mr-3 [&>svg]:max-w-8 rounded-lg focus:ring-" style={{ color: '#fff' }}>{startContent}</span>
             )}
-            {children}
+            <span style={{ color: '#fff' }}>{children}</span>
         </button>
     );
 };
 
 const CustomLandingCard = ({ icon, iconColor, title, description, tag, links, delay }) => {
     const iconColorStyles = {
-        blue: "#93c5fd", // text-blue-400
-        purple: "#a855f7", // text-purple-400
-        green: "#34d399", // text-green-400
+        blue: "var(--accent)",
+        purple: "var(--brand-light)",
+        green: "var(--success)",
     };
 
     return (
@@ -47,32 +48,32 @@ const CustomLandingCard = ({ icon, iconColor, title, description, tag, links, de
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay }}
-            className="relative bg-opacity-40 backdrop-blur-md border border-opacity-10 rounded-2xl p-6"
+            className="relative bg-opacity-40 backdrop-blur-md border border-success rounded-2xl p-6"
             style={{
-                backgroundColor: "rgba(15, 23, 42, 0.4)", // bg-content1/40
-                borderColor: "rgba(255, 255, 255, 0.1)", // border-white/10
+                backgroundColor: "rgba(34, 197, 94, 0.10)",
+                borderColor: "var(--success)",
             }}
         >
             <div className="flex items-center gap-3 mb-4">
                 <Icon
                     icon={icon}
                     className="text-2xl"
-                    style={{ color: iconColorStyles[iconColor] }}
+                    style={{ color: iconColor === 'green' ? '#fff' : '#22C55E' }}
                 />
                 <span
-                    className="inline-block px-3 py-1 rounded-full text-xs font-medium"
+                    className="inline-block px-3 py-1 rounded-full text-xs font-bold"
                     style={{
-                        backgroundColor: "rgba(59, 130, 246, 0.1)", // bg-blue-500/10
-                        color: "#93c5fd", // text-blue-400
+                        backgroundColor: "rgba(34, 197, 94, 0.12)",
+                        color: "var(--success)",
                     }}
                 >
           {tag}
         </span>
             </div>
-            <h3 className="text-xl font-bold mb-2">{title}</h3>
+            <h3 className="text-xl font-bold mb-2 text-white drop-shadow-lg">{title}</h3>
             <p
-                className="text-base mb-4"
-                style={{ color: "#d1d5db" }} // text-gray-300
+                className="text-base mb-4 text-white/90"
+                style={{ color: "#EAF7F0" }}
             >
                 {description}
             </p>
@@ -81,8 +82,8 @@ const CustomLandingCard = ({ icon, iconColor, title, description, tag, links, de
                     <a
                         key={index}
                         href={link.href}
-                        className="text-sm hover:underline"
-                        style={{ color: "#93c5fd" }} // text-blue-400
+                        className="text-sm hover:underline font-bold"
+                        style={{ color: "var(--success)" }}
                     >
                         {link.text}
                     </a>
@@ -100,7 +101,7 @@ export const FeaturesSection = () => {
             title: "Cryptocurrency Monitoring",
             description: "Track prices and trends on a different exchanges in real-time with analytics and notifications.",
             tag: "real-time",
-            links: [{ href: "#", text: "binance.com" }],
+            links: [{ href: "/", text: "tickers" }],
         },
         {
             icon: "lucide:history",
@@ -108,7 +109,7 @@ export const FeaturesSection = () => {
             title: "Backtesting",
             description: "Test strategies on historical data and optimize profits with advanced analytics.",
             tag: "strategy",
-            links: [{ href: "#", text: "docs.platform.com" }],
+            links: [{ href: "/backtest", text: "backtest" }],
         },
         {
             icon: "lucide:bot",
@@ -116,18 +117,14 @@ export const FeaturesSection = () => {
             title: "Trading Bots",
             description: "Set up automated trading strategies for 24/7 trading without constant monitoring.",
             tag: "automation",
-            links: [{ href: "#", text: "api.platform.com" }],
+            links: [{ href: "/bots", text: "bots" }],
         },
     ];
 
     return (
         <Section id="features" className="py-24 relative">
-            <div
-                className="absolute inset-0"
-                style={{
-                    backgroundImage: "linear-gradient(to bottom, rgba(15, 23, 42, 0), #0F172A, rgba(15, 23, 42, 0))", // bg-gradient-to-b from-crypto-dark/0 via-crypto-dark to-crypto-dark/0
-                }}
-            ></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.18)" }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.12)" }}></div>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -136,28 +133,20 @@ export const FeaturesSection = () => {
                 transition={{ duration: 0.6 }}
                 className="relative z-10 mb-16 text-center"
             >
-        <span
-            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
-            style={{
-                backgroundColor: "rgba(59, 130, 246, 0.1)", // bg-blue-500/10
-                color: "#93c5fd", // text-blue-400
-            }}
-        >
-          Opportunities
-        </span>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                    <span
-                        className="bg-clip-text text-transparent"
-                        style={{
-                            backgroundImage: "linear-gradient(to right, #3B82F6, #FFD700)", // gradient-text
-                        }}
-                    >
-           Our capabilities
-          </span>
+                <span
+                    className="inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-4"
+                    style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "var(--success)" }}
+                >
+                    Opportunities
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white drop-shadow-lg">
+                    <span style={{ color: "var(--success)" }}>
+                        Our capabilities
+                    </span>
                 </h2>
                 <p
                     className="text-xl max-w-2xl mx-auto"
-                    style={{ color: "#d1d5db" }} // text-gray-300
+                    style={{ color: "#d1d5db" }}
                 >
                     A set of tools for cryptocurrency bot creation with AI implementation
                 </p>
@@ -194,15 +183,6 @@ export const FeaturesSection = () => {
                     Try now
                 </CustomButton>
             </motion.div>
-
-            <div
-                className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full blur-3xl"
-                style={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }} // bg-blue-500/5
-            ></div>
-            <div
-                className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl"
-                style={{ backgroundColor: "rgba(168, 85, 247, 0.05)" }} // bg-purple-500/5
-            ></div>
         </Section>
     );
 };

@@ -14,7 +14,7 @@ function EducationSection() {
 const Home = () => {
 
     return (
-        <div>
+        <div className="min-h-screen bg-brand text-base">
             <HeroSection />
             <IntroSection />
             <FeaturesSection />

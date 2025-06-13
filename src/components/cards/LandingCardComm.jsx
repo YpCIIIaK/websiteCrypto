@@ -45,12 +45,17 @@ export const LandingCard = ({
             <Card className="crypto-card bg-content1/40 backdrop-blur-md border border-white/10 p-6 h-full text-white">
                 <div className="flex items-center justify-between mb-6">
                     <div className={`rounded-xl p-3 ${getIconColorClass(iconColor)}`}>
-                        <Icon icon={icon} className="text-2xl" />
+                        <Icon icon={icon} className="text-2xl" style={{ color: iconColor === 'green' ? '#fff' : '#22C55E' }} />
                     </div>
                     {tag && (
-                        <Badge color={getTagColor(tag)} variant="flat" size="sm">
-                            {tag}
-                        </Badge>
+                        <span
+                            className={`px-4 py-1.5 rounded-full text-xs font-bold inline-flex items-center shadow ml-2 ${
+                                tag === 'ai-insights' || tag === 'charts' ? 'bg-blue-500/10 text-blue-400' : tag === 'analytics' ? 'bg-purple-500/10 text-purple-400' : tag === 'automation' ? 'bg-green-500/10 text-green-400' : 'bg-gray-500/10 text-gray-400'
+                            }`}
+                            style={{ letterSpacing: '0.05em' }}
+                        >
+                            {tag.replace('-', ' ')}
+                        </span>
                     )}
                 </div>
 
@@ -84,7 +89,7 @@ export const LandingCard = ({
                     <div className="flex justify-center mt-4 gap-4">
                         {socialIcons.map((social, index) => (
                             <div key={index} className="p-2 rounded-full bg-content2 text-white">
-                                <Icon icon={social.icon} className="text-xl" />
+                                <Icon icon={social.icon} className="text-xl" style={{ color: '#22C55E' }} />
                             </div>
                         ))}
                     </div>

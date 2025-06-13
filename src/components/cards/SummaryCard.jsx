@@ -1,19 +1,94 @@
 import React from 'react';
+import { Card, CardBody } from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 // Функция для форматирования чисел до 4 знаков после запятой
 const formatNumber = (num) => Number(num.toFixed(4));
 
 const SummaryCard = ({ data, timeframe }) => {
+    const summary = {
+        volume: {
+            value: 2.5,
+            change: 12.5,
+            trend: 'up'
+        },
+        trades: {
+            value: 156,
+            change: 8.2,
+            trend: 'up'
+        },
+        liquidity: {
+            value: 1.2,
+            change: -3.1,
+            trend: 'down'
+        }
+    };
+
     // Проверяем, что data и data[exchange][timeframe] существуют
     const exchangeData = data?.binance?.[timeframe] || [];
 
     // Если данных нет, отображаем сообщение
     if (!exchangeData || exchangeData.length === 0) {
         return (
-            <div className="bg-white rounded-lg shadow p-4">
-                <h2 className="text-lg font-semibold text-gray-800">Summary</h2>
-                <p className="text-gray-600">No data available for {timeframe}</p>
-            </div>
+            <Card className="bg-content1/40 backdrop-blur-md border border-white/10">
+                <CardBody>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Volume */}
+                        <div className="p-4 rounded-lg bg-content2/50">
+                            <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-gray-400">Volume</h4>
+                                <Icon
+                                    icon={summary.volume.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                    className={`w-5 h-5`}
+                                    style={{ color: '#22C55E' }}
+                                />
+                            </div>
+                            <p className="text-2xl font-bold text-white">${summary.volume.value}B</p>
+                            <p className={`text-sm mt-1 ${
+                                summary.volume.trend === 'up' ? 'text-green-500' : 'text-red-500'
+                            }`}>
+                                {summary.volume.trend === 'up' ? '+' : ''}{summary.volume.change}%
+                            </p>
+                        </div>
+
+                        {/* Trades */}
+                        <div className="p-4 rounded-lg bg-content2/50">
+                            <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-gray-400">Trades</h4>
+                                <Icon
+                                    icon={summary.trades.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                    className={`w-5 h-5`}
+                                    style={{ color: '#22C55E' }}
+                                />
+                            </div>
+                            <p className="text-2xl font-bold text-white">{summary.trades.value}K</p>
+                            <p className={`text-sm mt-1 ${
+                                summary.trades.trend === 'up' ? 'text-green-500' : 'text-red-500'
+                            }`}>
+                                {summary.trades.trend === 'up' ? '+' : ''}{summary.trades.change}%
+                            </p>
+                        </div>
+
+                        {/* Liquidity */}
+                        <div className="p-4 rounded-lg bg-content2/50">
+                            <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-gray-400">Liquidity</h4>
+                                <Icon
+                                    icon={summary.liquidity.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                    className={`w-5 h-5`}
+                                    style={{ color: '#22C55E' }}
+                                />
+                            </div>
+                            <p className="text-2xl font-bold text-white">${summary.liquidity.value}B</p>
+                            <p className={`text-sm mt-1 ${
+                                summary.liquidity.trend === 'up' ? 'text-green-500' : 'text-red-500'
+                            }`}>
+                                {summary.liquidity.trend === 'up' ? '+' : ''}{summary.liquidity.change}%
+                            </p>
+                        </div>
+                    </div>
+                </CardBody>
+            </Card>
         );
     }
 
@@ -27,28 +102,65 @@ const SummaryCard = ({ data, timeframe }) => {
         : 0;
 
     return (
-        <div className="bg-white rounded-lg shadow p-4">
-            <h2 className="text-lg font-semibold text-gray-800">Summary ({timeframe})</h2>
-            <div className="mt-2 space-y-2">
-                <p className="text-gray-600">
-                    Last Price: <span className="font-medium">${formatNumber(lastData.close)}</span>
-                </p>
-                <p className="text-gray-600">
-                    High: <span className="font-medium">${high}</span>
-                </p>
-                <p className="text-gray-600">
-                    Low: <span className="font-medium">${low}</span>
-                </p>
-                <p className="text-gray-600">
-                    Volume: <span className="font-medium">{volume}</span>
-                </p>
-                <p className="text-gray-600">
-                    Change: <span className={`font-medium ${percentageChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                        {percentageChange >= 0 ? '+' : ''}{percentageChange}%
-                    </span>
-                </p>
-            </div>
-        </div>
+        <Card className="bg-content1/40 backdrop-blur-md border border-white/10">
+            <CardBody>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Volume */}
+                    <div className="p-4 rounded-lg bg-content2/50">
+                        <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-gray-400">Volume</h4>
+                            <Icon
+                                icon={summary.volume.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                className={`w-5 h-5`}
+                                style={{ color: '#22C55E' }}
+                            />
+                        </div>
+                        <p className="text-2xl font-bold text-white">${volume}B</p>
+                        <p className={`text-sm mt-1 ${
+                            percentageChange >= 0 ? 'text-green-500' : 'text-red-500'
+                        }`}>
+                            {percentageChange >= 0 ? '+' : ''}{percentageChange}%
+                        </p>
+                    </div>
+
+                    {/* Trades */}
+                    <div className="p-4 rounded-lg bg-content2/50">
+                        <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-gray-400">Trades</h4>
+                            <Icon
+                                icon={summary.trades.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                className={`w-5 h-5`}
+                                style={{ color: '#22C55E' }}
+                            />
+                        </div>
+                        <p className="text-2xl font-bold text-white">{summary.trades.value}K</p>
+                        <p className={`text-sm mt-1 ${
+                            summary.trades.trend === 'up' ? 'text-green-500' : 'text-red-500'
+                        }`}>
+                            {summary.trades.trend === 'up' ? '+' : ''}{summary.trades.change}%
+                        </p>
+                    </div>
+
+                    {/* Liquidity */}
+                    <div className="p-4 rounded-lg bg-content2/50">
+                        <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-gray-400">Liquidity</h4>
+                            <Icon
+                                icon={summary.liquidity.trend === 'up' ? 'lucide:trending-up' : 'lucide:trending-down'}
+                                className={`w-5 h-5`}
+                                style={{ color: '#22C55E' }}
+                            />
+                        </div>
+                        <p className="text-2xl font-bold text-white">${summary.liquidity.value}B</p>
+                        <p className={`text-sm mt-1 ${
+                            summary.liquidity.trend === 'up' ? 'text-green-500' : 'text-red-500'
+                        }`}>
+                            {summary.liquidity.trend === 'up' ? '+' : ''}{summary.liquidity.change}%
+                        </p>
+                    </div>
+                </div>
+            </CardBody>
+        </Card>
     );
 };
 

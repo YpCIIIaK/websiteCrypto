@@ -59,18 +59,14 @@ export const FAQSection = () => {
         },
         {
             question: "What is the minimum amount to start trading?",
-            answer: "The minimum amount depends on the chosen exchange and trading pair. For most exchanges, it’s equivalent to 10-50 USD. We recommend starting with an amount you’re comfortable using for learning.",
+            answer: "The minimum amount depends on the chosen exchange and trading pair. For most exchanges, it's equivalent to 10-50 USD. We recommend starting with an amount you're comfortable using for learning.",
         },
     ];
 
     return (
         <Section id="faq" className="py-24 relative">
-            <div
-                className="absolute inset-0"
-                style={{
-                    backgroundImage: "linear-gradient(to bottom, rgba(15, 23, 42, 0), #0F172A, rgba(15, 23, 42, 0))", // bg-gradient-to-b from-crypto-dark/0 via-crypto-dark to-crypto-dark/0
-                }}
-            ></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.18)" }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.12)" }}></div>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -79,29 +75,20 @@ export const FAQSection = () => {
                 transition={{ duration: 0.6 }}
                 className="relative z-10 mb-16 text-center"
             >
-        <span
-            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
-            style={{
-                backgroundColor: "rgba(59, 130, 246, 0.1)", // bg-blue-500/10
-                color: "#93c5fd", // text-blue-400
-            }}
-        >
-          FAQ
-        </span>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                    <span
-                        className="bg-clip-text text-transparent"
-                        style={{
-                            backgroundImage: "linear-gradient(to right, #3B82F6, #FFD700)", // gradient-text
-                        }}
-                    >
-
-                Frequently Asked Questions
-          </span>
+                <span
+                    className="inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-4"
+                    style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "var(--success)" }}
+                >
+                    FAQ
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white drop-shadow-lg">
+                    <span style={{ color: "var(--success)" }}>
+                        Frequently Asked Questions
+                    </span>
                 </h2>
                 <p
                     className="text-xl max-w-2xl mx-auto"
-                    style={{ color: "#d1d5db" }} // text-gray-300
+                    style={{ color: "#d1d5db" }}
                 >
                     Answers to the most common questions about our platform
                 </p>
@@ -124,7 +111,7 @@ export const FAQSection = () => {
                                 <Icon
                                     icon={isOpen ? "lucide:minus-circle" : "lucide:plus-circle"}
                                     className="text-xl"
-                                    style={{ color: isOpen ? "#93c5fd" : "#9ca3af" }} // text-blue-400 when open, text-gray-400 when closed
+                                    style={{ color: "var(--success)" }}
                                 />
                             )}
                         >
@@ -161,15 +148,6 @@ export const FAQSection = () => {
                     </div>
                 </motion.div>
             </motion.div>
-
-            <div
-                className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full blur-3xl"
-                style={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }} // bg-blue-500/5
-            ></div>
-            <div
-                className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full blur-3xl"
-                style={{ backgroundColor: "rgba(168, 85, 247, 0.05)" }} // bg-purple-500/5
-            ></div>
         </Section>
     );
 };

@@ -26,10 +26,10 @@ const CustomButton = ({ variant = "solid", size = "lg", startContent, children, 
     return (
         <button
             className={baseStyles}
-            style={variantStyles[variant]}
+            style={{ backgroundColor: 'var(--success)', color: '#fff' }}
         >
             {startContent && (
-                <span className="mr-3 [&>svg]:max-w-8">{startContent}</span>
+                <span className="mr-3 [&>svg]:max-w-8 rounded-lg focus:ring-" style={{ color: '#fff' }}>{startContent}</span>
             )}
             {children}
         </button>
@@ -76,9 +76,16 @@ export const AISection = () => {
         },
     ];
 
+    const iconColorStyles = {
+        blue: "var(--success)",
+        purple: "var(--success)",
+        green: "var(--success)",
+    };
+
     return (
         <Section id="ai" className="py-24 relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-crypto-dark/0 via-crypto-dark to-crypto-dark/0"></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.18)" }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: "rgba(34, 197, 94, 0.12)" }}></div>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -87,21 +94,18 @@ export const AISection = () => {
                 transition={{ duration: 0.6 }}
                 className="relative z-10 mb-16 text-center"
             >
-        <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-sm font-medium mb-4">
-          AI & Analytics
-        </span>
-                <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                    <span
-                        className="bg-clip-text text-transparent"
-                        style={{
-                            backgroundImage: "linear-gradient(to right, #3B82F6, #FFD700)", // gradient-text
-                        }}
-                    >
-
-                 Empower Your Trading with AI
-          </span>
+                <span
+                    className="inline-block px-4 py-1.5 rounded-full text-sm font-bold mb-4"
+                    style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "var(--success)" }}
+                >
+                    AI & Analytics
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-white drop-shadow-lg">
+                    <span style={{ color: "var(--success)" }}>
+                        Empower Your Trading with AI
+                    </span>
                 </h2>
-                <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                <p className="text-xl text-gray-300 max-w-2xl mx-auto" style={{ color: "#d1d5db" }}>
                     Harness cutting-edge AI and analytics to elevate your crypto trading
                 </p>
             </motion.div>
@@ -133,7 +137,7 @@ export const AISection = () => {
                     variant="solid"
                     size="lg"
                     className="px-8"
-                    startContent={<Icon icon="lucide:brain"/>}
+                    startContent={<Icon icon="lucide:brain" style={{ color: '#fff' }} />}
                 >
                     Get Started with AI
                 </CustomButton>
@@ -166,10 +170,6 @@ export const AISection = () => {
                     </div>
                 </div>
             </motion.div>
-
-            {/* Background elements */}
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full filter blur-3xl"></div>
-            <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full filter blur-3xl"></div>
         </Section>
     );
 };

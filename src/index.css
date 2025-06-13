@@ -1,1 +1,135 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Inter', sans-serif;
+    --brand: #245135;
+    --brand-dark: #183923;
+    --brand-light: #2F7048;
+    --accent: #225E9A;
+    --accent-light: #2F7AC6;
+    --accent-dark: #17446D;
+    --surface: #0E1C15;
+    --surface-alt: #142A1F;
+    --success: #22C55E;
+    --danger: #EF4444;
+    --info: #3B82F6;
+    --warn: #FACC15;
+    --text-base: #EAF7F0;
+    --text-muted: #A3BDB3;
+    --chart-blue: #3B82F6;
+    --chart-purple: #A855F7;
+    --chart-orange: #F97316;
+    --chart-green: #10B981;
+    --chart-yellow: #EAB308;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: hsl(var(--heroui-background));
+    color: hsl(var(--heroui-foreground));
+}
+
+.chart-tooltip {
+    background-color: hsl(var(--heroui-content1));
+    border: 1px solid hsl(var(--heroui-divider));
+    border-radius: 6px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.bg-brand {
+    background-color: var(--brand) !important;
+}
+.bg-brand-dark {
+    background-color: var(--brand-dark) !important;
+}
+.bg-brand-light {
+    background-color: var(--brand-light) !important;
+}
+.bg-accent {
+    background-color: var(--accent) !important;
+}
+.bg-accent-light {
+    background-color: var(--accent-light) !important;
+}
+.bg-accent-dark {
+    background-color: var(--accent-dark) !important;
+}
+.bg-surface {
+    background-color: var(--surface) !important;
+}
+.bg-surface-alt {
+    background-color: var(--surface-alt) !important;
+}
+.bg-success {
+    background-color: var(--success) !important;
+}
+.bg-danger {
+    background-color: var(--danger) !important;
+}
+.bg-info {
+    background-color: var(--info) !important;
+}
+.bg-warn {
+    background-color: var(--warn) !important;
+}
+
+.text-brand {
+    color: var(--brand) !important;
+}
+.text-brand-dark {
+    color: var(--brand-dark) !important;
+}
+.text-brand-light {
+    color: var(--brand-light) !important;
+}
+.text-accent {
+    color: var(--accent) !important;
+}
+.text-accent-light {
+    color: var(--accent-light) !important;
+}
+.text-accent-dark {
+    color: var(--accent-dark) !important;
+}
+.text-success {
+    color: var(--success) !important;
+}
+.text-danger {
+    color: var(--danger) !important;
+}
+.text-info {
+    color: var(--info) !important;
+}
+.text-warn {
+    color: var(--warn) !important;
+}
+.text-base {
+    color: var(--text-base) !important;
+}
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+.border-brand {
+    border-color: var(--brand) !important;
+}
+.border-accent {
+    border-color: var(--accent) !important;
+}
+.border-success {
+    border-color: var(--success) !important;
+}
+.border-danger {
+    border-color: var(--danger) !important;
+}
+.border-info {
+    border-color: var(--info) !important;
+}
+.border-warn {
+    border-color: var(--warn) !important;
+}
