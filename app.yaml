@@ -1,5 +1,23 @@
-runtime: nodejs22
+runtime: nodejs20
 env: standard
 
 automatic_scaling:
   max_instances: 5
+
+handlers:
+  # Serve all static files from the dist directory
+  - url: /assets/(.*)
+    static_files: dist/assets/\1
+    upload: dist/assets/.*
+    secure: always
+
+  # Serve the main index.html for all other routes
+  - url: /(.*\.(gif|png|jpg|ico|txt|js|css))$
+    static_files: dist/\1
+    upload: dist/.*\.(gif|png|jpg|ico|txt|js|css)$
+    secure: always
+
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
+    secure: always
