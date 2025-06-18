@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
-import HeroSection from "../../components/sections/HeroSection.jsx";
-import FeaturesSection from "../../components/sections/FeaturesSection.jsx";
-import FAQSection from "../../components/sections/FAQSection.jsx";
-import CommunitySection from "../../components/sections/CommunitySection.jsx";
-import FinalCTASection from "../../components/sections/FinalCTASection.jsx";
-import IntroSection from "../../components/sections/IntroSection.jsx";
-import ChartDemoSection from "../../components/sections/ChartSection.jsx";
-
-function EducationSection() {
-    return null;
-}
+import React from 'react';
+import WhatIsVortanSection from '../../components/sections/WhatIsVortanSection.jsx';
+import ProductFeaturesSection from '../../components/sections/ProductFeaturesSection.jsx';
+import WhoIsForSection from '../../components/sections/WhoIsForSection.jsx';
+import TeamSection from '../../components/sections/TeamSection.jsx';
+import ContactAboutSection from '../../components/sections/ContactAboutSection.jsx';
+import PricingSummarySection from '../../components/sections/PricingSummarySection.jsx';
 
 const Home = () => {
-
-    return (
-        <div className="min-h-screen bg-brand text-base">
-            <HeroSection />
-            <IntroSection />
-            <FeaturesSection />
-            <ChartDemoSection />
-            <CommunitySection />
-            <FAQSection />
-        </div>
-    );
+  return (
+    <div className="min-h-screen bg-brand text-base">
+      <WhatIsVortanSection />
+      <ProductFeaturesSection />
+      <WhoIsForSection />
+      <TeamSection />
+      <PricingSummarySection />
+      <ContactAboutSection />
+    </div>
+  );
 };
 
 export default Home;
