@@ -28,6 +28,11 @@ const TeamSection = () => (
           <div className="text-xl font-bold text-white mb-2">{member.name}</div>
           <div className="text-success font-semibold mb-1">{member.role}</div>
           <div className="text-white/80 text-sm mb-2">{member.university}</div>
+          <img
+            src={idx === 0 ? '/arlan.png' : '/vova.jpg'}
+            alt={member.name}
+            className="w-20 h-20 object-cover rounded-full mx-auto mt-2 border-4 border-success shadow"
+          />
         </div>
       ))}
     </div>
