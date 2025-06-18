@@ -31,7 +31,7 @@ const ContactAboutSection = () => (
           <Icon icon="mdi:github" className="text-2xl" style={{color:'var(--success)'}} /> @ruhalis
         </a>
       </div>
-      <div className="min-w-[220px] max-w-[260px] flex flex-col items-center justify-center relative bg-opacity-40 backdrop-blur-md border border-success rounded-2xl p-6" style={{backgroundColor:'rgba(34,197,94,0.10)',borderColor:'var(--success)'}}>
+      <div className="min-w-[280px] max-w-[380px] flex flex-col items-center justify-center relative bg-opacity-40 backdrop-blur-md border border-success rounded-2xl p-6" style={{backgroundColor:'rgba(34,197,94,0.10)',borderColor:'var(--success)'}}>
         <div className="text-lg font-bold text-success mb-2">LinkedIn</div>
         <a href="https://www.linkedin.com/in/arlan-baikurazov/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-bold text-lg text-success px-6 py-3 rounded-xl shadow-lg hover:opacity-90 active:scale-95 transition mb-2 bg-white">
           <Icon icon="mdi:linkedin" className="text-2xl" style={{color:'var(--success)'}} /> @arlan-baikurazov
