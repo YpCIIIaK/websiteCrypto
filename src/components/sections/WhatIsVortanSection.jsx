@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Icon } from '@iconify/react';
+import Button from '../buttons/Button.jsx';
 
 const WhatIsVortanSection = () => {
   return (
-    <section className="py-32 relative flex flex-col items-center justify-center text-center overflow-hidden">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center relative overflow-hidden">
       {/* Background circles */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.18)' }}></div>
       <div className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.12)' }}></div>
@@ -43,15 +44,11 @@ const WhatIsVortanSection = () => {
       >
         Vortan helps retail traders make smarter decisions with real-time price forecasting, volatility insights, and an AI copilot for strategy — no coding needed.
       </motion.p>
-      <motion.a
-        href="#waitlist"
-        className="inline-block px-8 py-4 rounded-2xl font-bold text-lg bg-success text-white shadow-lg hover:opacity-90 active:scale-95 transition relative z-10"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        Get early access
-      </motion.a>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="relative z-10">
+        <a href="#waitlist" style={{ textDecoration: 'none' }}>
+          <Button text="Get early access" />
+        </a>
+      </motion.div>
     </section>
   );
 };

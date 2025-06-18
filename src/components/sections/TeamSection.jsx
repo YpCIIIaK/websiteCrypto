@@ -15,7 +15,7 @@ const team = [
 ];
 
 const TeamSection = () => (
-  <section className="relative py-20 px-4 max-w-4xl mx-auto text-center">
+  <section className="min-h-screen flex flex-col justify-center relative px-4 max-w-4xl mx-auto text-center">
     <div className="absolute top-1/3 left-1/3 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.18)' }}></div>
     <div className="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.12)' }}></div>
     <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white drop-shadow-lg relative z-10">

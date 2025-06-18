@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
+import Button from '../buttons/Button.jsx';
 
 const plans = [
   {
@@ -22,7 +23,7 @@ const plans = [
 const planIcons = ["lucide:star","lucide:zap","lucide:rocket"];
 
 const PricingSummarySection = () => (
-  <section className="relative py-20 px-4 max-w-4xl mx-auto text-center">
+  <section className="min-h-screen flex flex-col justify-center relative px-4 max-w-4xl mx-auto text-center">
     <div className="absolute top-1/3 left-1/3 w-72 h-72 rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.18)' }}></div>
     <div className="absolute bottom-1/3 right-1/3 w-96 h-96 rounded-full blur-3xl z-0" style={{ backgroundColor: 'rgba(34, 197, 94, 0.12)' }}></div>
     <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white drop-shadow-lg relative z-10">
@@ -38,9 +39,11 @@ const PricingSummarySection = () => (
         </div>
       ))}
     </div>
-    <a href="/pricing" className="inline-block px-8 py-3 rounded-2xl font-bold text-lg bg-success text-white shadow-lg hover:opacity-90 active:scale-95 transition relative z-10">
-      View all pricing
-    </a>
+    <div className="relative z-10">
+      <a href="/pricing" style={{ textDecoration: 'none' }}>
+        <Button text="View all pricing" />
+      </a>
+    </div>
   </section>
 );
 
