@@ -152,39 +152,34 @@ const CustomDropdownMenu = ({ children, className = "" }) => {
     );
 };
 
-const CustomDropdownItem = ({ children, startContent, description, key }) => {
+const CustomDropdownItem = ({ children, startContent, description, key, onClick, className = "" }) => {
     return (
-        <div
-            className="flex items-center gap-3 p-2 w-full text-left rounded-lg text-gray-300"
-            style={{ color: "#d1d5db" }} // text-gray-300
+        <button
+            type="button"
+            onClick={onClick}
+            className={`w-full flex items-center justify-start rounded-xl px-4 py-2 text-accent border border-accent bg-surface hover:bg-accent hover:text-surface transition-colors text-base ${className}`}
+            style={{ backgroundColor: "var(--surface)", borderColor: "var(--accent)", color: "var(--accent)" }}
             key={key}
         >
-            {startContent && <span>{startContent}</span>}
-            <div>
-                <div>{children}</div>
-                {description && (
-                    <div
-                        className="text-xs"
-                        style={{ color: "#9ca3af" }} // text-gray-400
-                    >
-                        {description}
-                    </div>
-                )}
-            </div>
-        </div>
+            {startContent && <span className="mr-3">{startContent}</span>}
+            <span className="flex-1 text-left">{children}</span>
+            {description && (
+                <span className="text-xs text-muted ml-2" style={{ color: "#9ca3af" }}>{description}</span>
+            )}
+        </button>
     );
 };
 
 const CustomNavbar = ({ children, className = "" }) => {
     return (
         <nav
-            className={`relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+            className={`relative w-full ${className}`}
             style={{
                 backgroundColor: "#245135" // brand
                 // borderBottom: "2px solid #183923" // Удалено по просьбе пользователя
             }}
         >
-            <div className="flex items-center justify-between h-16">{children}</div>
+            <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
         </nav>
     );
 };
@@ -269,7 +264,7 @@ const NavbarComponent = () => {
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/"
+                                to="/bots"
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
@@ -324,3 +319,5 @@ const NavbarComponent = () => {
 };
 
 export default NavbarComponent;
+
+export { CustomDropdown, CustomDropdownMenu, CustomDropdownItem };
