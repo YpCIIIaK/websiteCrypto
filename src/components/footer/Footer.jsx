@@ -24,7 +24,7 @@ const CustomDivider = ({ className = "" }) => {
 
 export const Footer = () => {
     const navLinks = [
-        { text: "Tokens", href: "/tickers" },
+        { text: "Tokens", href: "/tokens" },
         { text: "Backtest", href: "/backtest" },
         { text: "Bots", href: "/bots" },
         { text: "Pricing", href: "/pricing"}

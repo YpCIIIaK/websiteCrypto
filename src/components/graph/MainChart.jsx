@@ -1,218 +1,157 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
-    LineChart,
+    ComposedChart,
     Line,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
     ResponsiveContainer,
+    Area,
     ReferenceLine,
-    ReferenceDot,
+    CartesianGrid,
 } from 'recharts';
 
-const MainChart = ({ data, chartType, options, showTrend, trendData, timeframe }) => {
-    const chartColor = '#3b82f6'; // Blue-500 for main line
-    const trendColor = '#f97316'; // Orange-500 for trend line
+function MainChart({ ohlcData = [], trendData = [], showTrend = true }) {
+    const [crosshair, setCrosshair] = useState(null);
 
-    const [activePrice, setActivePrice] = useState(null);
+    const displayData = useMemo(() => {
+        if (!ohlcData || ohlcData.length === 0) return [];
+        const sortedData = [...ohlcData].sort((a, b) => new Date(a.time) - new Date(b.time));
+        const displayTrendData = showTrend && trendData ?
+            trendData.filter(t => ohlcData.some(o => o.time === t.time)) :
+            [];
 
-    // Проверка данных
-    if (!data || data.length === 0) {
-        console.warn(`No data for ${timeframe} timeframe`);
-        return <div className="w-full h-[470px] flex items-center justify-center text-gray-800">No data available</div>;
-    }
-
-    const minLow = Math.min(...data.map(d => d.low));
-    const maxHigh = Math.max(...data.map(d => d.high));
-    const margin = (maxHigh - minLow) * 0.05;
-    const yDomain = [minLow - margin, maxHigh + margin];
-
-    const syncedTrendData = trendData && data.length > 0
-        ? trendData.filter(trend => data.some(d => d.time === trend.time))
-        : [];
-
-    const formatTime = (time) => {
-        if (!time) return '';
-        const date = new Date(time);
-        if (isNaN(date)) return time;
-        if (timeframe === '1m' || timeframe === '1h') {
-            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        return sortedData.map(o => {
+            const trendPoint = displayTrendData.find(t => t.time === o.time);
+            return {
+                ...o,
+                ...(trendPoint && { avg_price: trendPoint.avg_price }),
+            };
+        });
+    }, [ohlcData, trendData, showTrend]);
+    
+    const yDomain = useMemo(() => {
+        if (!ohlcData || ohlcData.length === 0) {
+            return ['auto', 'auto'];
         }
-        return date.toLocaleDateString([], { day: 'numeric', month: 'short' });
+
+        const lows = ohlcData.map(p => p.low);
+        const highs = ohlcData.map(p => p.high);
+
+        if (lows.length === 0 || highs.length === 0) {
+            return ['auto', 'auto'];
+        }
+
+        const min = Math.min(...lows);
+        const max = Math.max(...highs);
+
+        const padding = (max - min) * 0.15; // Increased padding a bit
+
+        return [min - padding, max + padding];
+    }, [ohlcData]);
+
+
+    const handleMouseMove = (e) => {
+        if (e.activePayload && e.activePayload.length) {
+            const payload = e.activePayload[0].payload;
+            setCrosshair({
+                time: payload.time,
+                price: payload.close,
+            });
+        }
     };
 
-    const CustomCursor = (props) => {
-        const { x, height, width } = props;
-        if (isNaN(x) || isNaN(width)) {
-            console.warn('Invalid cursor props:', props);
-            return null;
-        }
-        return (
-            <line
-                x1={x + width / 2}
-                x2={x + width / 2}
-                y1={0}
-                y2={height}
-                stroke="#e5e7eb" // Gray-200
-                strokeWidth={1}
-                strokeDasharray="4 4"
-                opacity={0.8}
-            />
-        );
+    const handleMouseLeave = () => {
+        setCrosshair(null);
     };
 
-    const tooltipFormatter = (value, name, props) => {
-        const { payload } = props;
-        if (name === 'open') return [`Open: ${value.toFixed(4)}`, ''];
-        if (name === 'close') return [`Close: ${payload.close.toFixed(4)}`, ''];
-        if (name === 'avg_price') return [`Trend: ${value.toFixed(4)}`, ''];
-        return value.toFixed(4);
+    const formatTime = (timeStr) => {
+        const date = new Date(timeStr);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
-    const handleTooltip = useCallback(({ active, payload }) => {
-        if (active && payload && payload.length) {
-            setActivePrice(payload[0].payload.close);
-        } else {
-            setActivePrice(null);
-        }
-    }, []);
-
-    const CustomPriceLabel = () => {
-        const lastPoint = data[data.length - 1];
-        const x = new Date(lastPoint.time).getTime();
-        if (isNaN(x)) {
-            console.warn('Invalid timestamp for CustomPriceLabel:', lastPoint.time);
-            return null;
-        }
+    const CustomCursor = ({ points, width, height }) => {
+        const { x, y } = points[0];
         return (
             <g>
-                <rect
-                    x={x}
-                    y={lastPoint.close - 15}
-                    width={70}
-                    height={24}
-                    fill="#1f2937" // Gray-800
-                    stroke="#4b5563" // Gray-600
-                    strokeWidth={1}
-                    rx={4} // Rounded corners
-                />
-                <text
-                    x={x + 35}
-                    y={lastPoint.close}
-                    textAnchor="middle"
-                    fill="#ffffff" // White text
-                    fontSize={12}
-                    fontWeight={500}
-                >
-                    {lastPoint.close.toFixed(4)}
-                </text>
+                <line x1={x} y1={0} x2={x} y2={height} stroke="#525252" strokeWidth={1} strokeDasharray="3 3" />
+                <line x1={0} y1={y} x2={width} y2={y} stroke="#525252" strokeWidth={1} strokeDasharray="3 3" />
             </g>
         );
     };
-
-    // Ограничение количества точек
-    const maxPoints = 1000;
-    const displayData = data.length > maxPoints ? data.slice(-maxPoints) : data;
-    const displayTrendData = syncedTrendData.length > maxPoints ? syncedTrendData.slice(-maxPoints) : syncedTrendData;
+    
+    const tooltipFormatter = (value, name, props) => {
+      // This can be simplified or removed if the custom content is used
+      return null;
+    };
 
     return (
-        <div className="w-full h-[470px] bg-white rounded-xl shadow-md overflow-hidden">
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    data={displayData}
-                    margin={{ top: 20, right: 40, left: 20, bottom: 10 }}
-                >
-                    <CartesianGrid
-                        stroke="#e5e7eb" // Gray-200
-                        strokeOpacity={0.5}
-                        vertical={false}
-                    />
-                    <XAxis
-                        dataKey="time"
-                        tickFormatter={formatTime}
-                        tick={{ fill: '#1f2937', fontSize: 12 }} // Gray-800
-                        stroke="#e5e7eb" // Gray-200
-                        interval="preserveStartEnd"
-                        minTickGap={30}
-                        tickCount={10}
-                    />
-                    <YAxis
-                        domain={yDomain}
-                        orientation="right"
-                        tickFormatter={(value) => value.toFixed(4)}
-                        tick={{ fill: '#1f2937', fontSize: 12 }} // Gray-800
-                        stroke="#e5e7eb" // Gray-200
-                    />
-                    <Tooltip
-                        cursor={<CustomCursor />}
-                        formatter={tooltipFormatter}
-                        content={({ active, payload, label }) => {
-                            handleTooltip({ active, payload });
-                            if (active && payload && payload.length) {
-                                const { open, close } = payload[0].payload;
-                                const trendPoint = displayTrendData.find(item => item.time === label);
-                                return (
-                                    <div className="bg-white border border-gray-300 p-3 rounded-lg shadow-md text-sm">
-                                        <p className="text-gray-600 font-medium">{formatTime(label)}</p>
-                                        <p className="text-gray-800">Open: {open.toFixed(4)}</p>
-                                        <p className="text-gray-800">Close: {close.toFixed(4)}</p>
-                                        {showTrend && trendPoint && (
-                                            <p className="text-orange-600">
-                                                Trend: {trendPoint.avg_price.toFixed(4)}
-                                            </p>
-                                        )}
+        <ResponsiveContainer width="100%" height={400}>
+            <ComposedChart
+                data={displayData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+            >
+                <defs>
+                    <linearGradient id="colorClose" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                    </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis dataKey="time" tickFormatter={formatTime} tick={{ fill: '#374151', fontSize: 12 }} stroke="#d1d5db" />
+                <YAxis
+                    orientation="right"
+                    yAxisId="right"
+                    domain={yDomain}
+                    tickFormatter={(value) => `$${value.toFixed(2)}`}
+                    tick={{ fill: '#374151', fontSize: 12 }}
+                    stroke="#d1d5db"
+                />
+                <Tooltip
+                    cursor={false}
+                    formatter={tooltipFormatter}
+                    content={({ active, payload, label }) => {
+                        if (active && payload && payload.length) {
+                            const { open, high, low, close } = payload[0].payload;
+                            const trendPoint = displayData.find(item => item.time === label);
+                            return (
+                                <div className="bg-white/90 backdrop-blur-sm border border-gray-200 p-2 rounded-md shadow-lg text-xs">
+                                    <p className="font-semibold text-gray-800 mb-1">{formatTime(label)}</p>
+                                    <div className="grid grid-cols-2 gap-x-3 gap-y-1">
+                                        <p className="text-gray-600"><span className="font-medium text-gray-500">O:</span> {open.toFixed(2)}</p>
+                                        <p className="text-gray-600"><span className="font-medium text-gray-500">H:</span> {high.toFixed(2)}</p>
+                                        <p className="text-gray-600"><span className="font-medium text-gray-500">L:</span> {low.toFixed(2)}</p>
+                                        <p className="text-gray-600"><span className="font-medium text-gray-500">C:</span> {close.toFixed(2)}</p>
                                     </div>
-                                );
-                            }
-                            return null;
-                        }}
-                    />
-                    <Line
-                        type="monotone"
-                        dataKey="close"
-                        stroke={chartColor}
-                        strokeWidth={2}
-                        dot={false}
-                        tension={0}
-                        activeDot={{ r: 6, fill: chartColor, stroke: '#1f2937', strokeWidth: 2 }}
-                    />
-                    {showTrend && displayTrendData.length > 0 && (
-                        <Line
-                            type="monotone"
-                            dataKey="avg_price"
-                            data={displayTrendData}
-                            stroke={trendColor}
-                            strokeWidth={2}
-                            dot={false}
-                            tension={0}
-                            activeDot={{ r: 6, fill: trendColor, stroke: '#1f2937', strokeWidth: 2 }}
-                        />
-                    )}
-                    {activePrice && (
-                        <ReferenceLine
-                            y={activePrice}
-                            stroke="#d1d5db" // Gray-300
-                            strokeDasharray="4 4"
-                            strokeWidth={1}
-                            opacity={0.8}
-                        />
-                    )}
-                    {displayData.length > 0 && (
-                        <ReferenceDot
-                            x={displayData[displayData.length - 1].time}
-                            y={displayData[displayData.length - 1].close}
-                            r={5}
-                            fill={chartColor}
-                            stroke="#1f2937" // Gray-800
-                            strokeWidth={2}
-                            shape={CustomPriceLabel}
-                        />
-                    )}
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
+                                    {showTrend && trendPoint && trendPoint.avg_price && (
+                                        <>
+                                            <div className="border-t border-gray-200 my-1"></div>
+                                            <p className="text-orange-500 font-medium">
+                                                Trend: {trendPoint.avg_price.toFixed(2)}
+                                            </p>
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        }
+                        return null;
+                    }}
+                />
+                <Area type="monotone" dataKey="close" stroke="#3b82f6" fill="url(#colorClose)" strokeWidth={2} yAxisId="right" />
+                
+                {showTrend && <Line type="monotone" dataKey="avg_price" stroke="#f97316" strokeWidth={2} dot={false} yAxisId="right" connectNulls={false} />}
+                
+                {crosshair && (
+                  <>
+                    <ReferenceLine x={crosshair.time} stroke="#6b7280" strokeDasharray="3 3" />
+                    <ReferenceLine y={crosshair.price} yAxisId="right" stroke="#6b7280" strokeDasharray="3 3" />
+                  </>
+                )}
+            </ComposedChart>
+        </ResponsiveContainer>
     );
-};
+}
 
 export default MainChart;

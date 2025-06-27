@@ -178,13 +178,14 @@ const CustomDropdownItem = ({ children, startContent, description, key }) => {
 const CustomNavbar = ({ children, className = "" }) => {
     return (
         <nav
-            className={`relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+            className={`relative w-full ${className}`}
             style={{
                 backgroundColor: "#245135" // brand
-                // borderBottom: "2px solid #183923" // Удалено по просьбе пользователя
             }}
         >
-            <div className="flex items-center justify-between h-16">{children}</div>
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">{children}</div>
+            </div>
         </nav>
     );
 };
@@ -247,7 +248,7 @@ const NavbarComponent = () => {
                     <CustomNavbarContent className="gap-8">
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/"
+                                to="/tokens"
                                 className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
                                 style={{ color: "#d1d5db" }} // text-gray-300
                                 underline="hover"
@@ -269,12 +270,10 @@ const NavbarComponent = () => {
                         </CustomNavbarItem>
                         <CustomNavbarItem>
                             <CustomLink
-                                to="/"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
-                                style={{ color: "#d1d5db" }} // text-gray-300
+                                to="/bots"
+                                className="text-gray-300 font-medium"
                                 underline="hover"
                             >
-                                <Icon icon="lucide:bot" className="w-5 h-5" style={{ color: '#fff' }} />
                                 Bots
                             </CustomLink>
                         </CustomNavbarItem>

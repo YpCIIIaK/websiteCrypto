@@ -1,76 +1,73 @@
 import React from 'react';
-import { Card, CardBody } from "@heroui/react";
-import { Icon } from "@iconify/react";
+import { Card, CardContent, CardHeader, CardTitle } from "../cards/Card";
 
-const VolatilityChart = ({ data, timeframe }) => {
-    const volatility = {
-        high: 75,
-        medium: 20,
-        low: 5
+// Вспомогательная функция для генерации моковых данных о волатильности за последние 30 дней
+const generateVolatilityData = () => {
+    const data = [];
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        const volatility = Math.random(); // Случайное значение от 0 до 1
+        data.push({
+            date: date.toISOString().split('T')[0],
+            volatility,
+        });
+    }
+    return data;
+};
+
+const VolatilityChart = () => {
+    const data = generateVolatilityData();
+
+    // Функция для определения цвета квадрата в зависимости от уровня волатильности
+    const getVolatilityColor = (volatility) => {
+        if (volatility > 0.75) return 'bg-green-600/80 hover:bg-green-600';
+        if (volatility > 0.5) return 'bg-green-500/80 hover:bg-green-500';
+        if (volatility > 0.25) return 'bg-green-400/80 hover:bg-green-400';
+        return 'bg-green-300/80 hover:bg-green-300';
+    };
+
+    // Функция для текстового описания уровня волатильности
+    const getVolatilityLevel = (volatility) => {
+        if (volatility > 0.75) return 'High';
+        if (volatility > 0.5) return 'Medium';
+        if (volatility > 0.25) return 'Low';
+        return 'Very Low';
     };
 
     return (
-        <Card className="bg-content1/40 backdrop-blur-md border border-white/10">
-            <CardBody>
-                <div className="space-y-4">
-                    {/* High Volatility */}
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
-                            <Icon icon="lucide:zap" className="w-5 h-5" style={{ color: '#22C55E' }} />
-                        </div>
-                        <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
-                                <span className="text-sm text-gray-400">High</span>
-                                <span className="text-sm text-red-500">{volatility.high}%</span>
-                            </div>
-                            <div className="h-2 bg-gray-700 rounded-full">
-                                <div
-                                    className="h-full bg-red-500 rounded-full"
-                                    style={{ width: `${volatility.high}%` }}
-                                />
+        <Card>
+            <CardHeader>
+                <CardTitle>30-Day Volatility</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-10 gap-1.5">
+                    {data.map((day, index) => (
+                        <div key={index} className="relative group">
+                            <div
+                                className={`w-full aspect-square rounded-sm transition-colors ${getVolatilityColor(day.volatility)}`}
+                            />
+                            {/* Кастомный тултип */}
+                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max hidden group-hover:block bg-gray-800 text-white text-xs rounded-md py-1 px-2 z-20 shadow-lg pointer-events-none">
+                                <span className="font-semibold">{day.date}</span>
+                                <br />
+                                <span>{`${getVolatilityLevel(day.volatility)} (${(day.volatility * 100).toFixed(0)}%)`}</span>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Medium Volatility */}
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                            <Icon icon="lucide:activity" className="w-5 h-5" style={{ color: '#22C55E' }} />
-                        </div>
-                        <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
-                                <span className="text-sm text-gray-400">Medium</span>
-                                <span className="text-sm text-yellow-500">{volatility.medium}%</span>
-                            </div>
-                            <div className="h-2 bg-gray-700 rounded-full">
-                                <div
-                                    className="h-full bg-yellow-500 rounded-full"
-                                    style={{ width: `${volatility.medium}%` }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Low Volatility */}
-                    <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                            <Icon icon="lucide:line-chart" className="w-5 h-5" style={{ color: '#22C55E' }} />
-                        </div>
-                        <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
-                                <span className="text-sm text-gray-400">Low</span>
-                                <span className="text-sm text-green-500">{volatility.low}%</span>
-                            </div>
-                            <div className="h-2 bg-gray-700 rounded-full">
-                                <div
-                                    className="h-full bg-green-500 rounded-full"
-                                    style={{ width: `${volatility.low}%` }}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
-            </CardBody>
+                <div className="flex items-center justify-end space-x-4 mt-4 text-xs text-gray-500">
+                    <span>Low</span>
+                    <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded-sm bg-green-300/80" />
+                        <div className="w-3 h-3 rounded-sm bg-green-400/80" />
+                        <div className="w-3 h-3 rounded-sm bg-green-500/80" />
+                        <div className="w-3 h-3 rounded-sm bg-green-600/80" />
+                    </div>
+                    <span>High</span>
+                </div>
+            </CardContent>
         </Card>
     );
 };
