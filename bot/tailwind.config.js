@@ -1,10 +1,15 @@
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./src/bots/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
+    "*.{js,jsx,mdx}",
+    "*.{js,ts,jsx,tsx,mdx}",
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -15,6 +20,7 @@ export default {
     },
     extend: {
       colors: {
+        // Фирменные цвета
         brand: {
           DEFAULT: "#245135",
           dark: "#183923",
@@ -37,6 +43,7 @@ export default {
           base: "#EAF7F0",
           muted: "#A3BDB3",
         },
+        // Цвета для графиков
         chart: {
           blue: "#3B82F6",
           purple: "#A855F7",
@@ -44,6 +51,7 @@ export default {
           green: "#10B981",
           yellow: "#EAB308",
         },
+        // Shadcn переменные
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -96,5 +104,4 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate")],
-  darkMode: 'class',
-} 
+}

@@ -152,26 +152,21 @@ const CustomDropdownMenu = ({ children, className = "" }) => {
     );
 };
 
-const CustomDropdownItem = ({ children, startContent, description, key }) => {
+const CustomDropdownItem = ({ children, startContent, description, key, onClick, className = "" }) => {
     return (
-        <div
-            className="flex items-center gap-3 p-2 w-full text-left rounded-lg text-gray-300"
-            style={{ color: "#d1d5db" }} // text-gray-300
+        <button
+            type="button"
+            onClick={onClick}
+            className={`w-full flex items-center justify-start rounded-xl px-4 py-2 text-accent border border-accent bg-surface hover:bg-accent hover:text-surface transition-colors text-base ${className}`}
+            style={{ backgroundColor: "var(--surface)", borderColor: "var(--accent)", color: "var(--accent)" }}
             key={key}
         >
-            {startContent && <span>{startContent}</span>}
-            <div>
-                <div>{children}</div>
-                {description && (
-                    <div
-                        className="text-xs"
-                        style={{ color: "#9ca3af" }} // text-gray-400
-                    >
-                        {description}
-                    </div>
-                )}
-            </div>
-        </div>
+            {startContent && <span className="mr-3">{startContent}</span>}
+            <span className="flex-1 text-left">{children}</span>
+            {description && (
+                <span className="text-xs text-muted ml-2" style={{ color: "#9ca3af" }}>{description}</span>
+            )}
+        </button>
     );
 };
 
@@ -183,9 +178,7 @@ const CustomNavbar = ({ children, className = "" }) => {
                 backgroundColor: "#245135" // brand
             }}
         >
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">{children}</div>
-            </div>
+            <div className="flex items-center justify-between h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">{children}</div>
         </nav>
     );
 };
@@ -247,52 +240,21 @@ const NavbarComponent = () => {
                 <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex z-10">
                     <CustomNavbarContent className="gap-8">
                         <CustomNavbarItem>
-                            <CustomLink
-                                to="/tokens"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
-                                style={{ color: "#d1d5db" }} // text-gray-300
-                                underline="hover"
-                            >
-                                <Icon icon="lucide:line-chart" className="w-5 h-5" style={{ color: '#fff' }} />
-                                Tokens
-                            </CustomLink>
+                            <CustomLink to="/tokens" className="text-gray-300 hover:text-crypto-accent transition-colors" underline="hover">Tokens</CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
-                            <CustomLink
-                                to="/"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
-                                style={{ color: "#d1d5db" }} // text-gray-300
-                                underline="hover"
-                            >
-                                <Icon icon="lucide:history" className="w-5 h-5" style={{ color: '#fff' }} />
-                                Backtest
-                            </CustomLink>
+                            <CustomLink to="/backtest" className="text-gray-300 hover:text-crypto-accent transition-colors" underline="hover">Backtest</CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
-                            <CustomLink
-                                to="/bots"
-                                className="text-gray-300 font-medium"
-                                underline="hover"
-                            >
-                                Bots
-                            </CustomLink>
+                            <CustomLink to="/bots" className="text-gray-300 hover:text-crypto-accent transition-colors" underline="hover">Bots</CustomLink>
                         </CustomNavbarItem>
                         <CustomNavbarItem>
-                            <CustomLink
-                                to="/pricing"
-                                className="text-gray-300 hover:text-crypto-accent transition-colors flex items-center gap-2"
-                                style={{ color: "#d1d5db" }} // text-gray-300
-                                underline="hover"
-                            > 
-                                <Icon icon="lucide:credit-card" className="w-5 h-5" style={{ color: '#fff' }} />
-                                Pricing
-                            </CustomLink>
+                            <CustomLink to="/pricing" className="text-gray-300 hover:text-crypto-accent transition-colors" underline="hover">Pricing</CustomLink>
                         </CustomNavbarItem>
                     </CustomNavbarContent>
                 </div>
 
-                <CustomNavbarContent justify="end" className="gap-4">
-
+                <CustomNavbarContent justify="end" className="hidden md:flex items-center gap-4">
                     <CustomNavbarItem>
                         <CustomButton
                             as={Link}
@@ -323,3 +285,5 @@ const NavbarComponent = () => {
 };
 
 export default NavbarComponent;
+
+export { CustomDropdown, CustomDropdownMenu, CustomDropdownItem };
