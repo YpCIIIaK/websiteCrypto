@@ -38,12 +38,12 @@ export default function Sidebar({ currentPage, onPageChange }) {
       icon: Settings,
       badge: null,
     },
-    {
-      id: "docs",
-      label: "Документация",
-      icon: Zap,
-      badge: null,
-    },
+    // {
+    //   id: "docs",
+    //   label: "Документация",
+    //   icon: Zap,
+    //   badge: null,
+    // },
   ]
 
   // Мобильная кнопка-гамбургер
@@ -90,11 +90,7 @@ export default function Sidebar({ currentPage, onPageChange }) {
               <Button
                 key={item.id}
                 variant={currentPage === item.id ? "secondary" : "ghost"}
-                className={`w-full justify-start ${
-                  currentPage === item.id
-                    ? "bg-brand text-base hover:bg-brand-light"
-                    : "text-muted hover:text-base hover:bg-surface"
-                }`}
+                className="w-full justify-start"
                 onClick={() => { onPageChange(item.id); setOpen(false); }}
               >
                 <item.icon className="h-4 w-4 mr-3" />
@@ -110,7 +106,7 @@ export default function Sidebar({ currentPage, onPageChange }) {
         </nav>
         {/* Quick Actions */}
         <div className="p-4 border-t border-brand-dark">
-          <Button onClick={() => { onPageChange("create-bot"); setOpen(false); }} className="w-full bg-accent hover:bg-accent-light text-base">
+          <Button onClick={() => { onPageChange("create-bot"); setOpen(false); }} className="w-full">
             <Plus className="h-4 w-4 mr-2" />
             Создать бота
           </Button>

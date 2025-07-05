@@ -1,9 +1,19 @@
-export function Input(props) {
-  const { className = '', ...rest } = props;
+import * as React from "react"
+import { cn } from "../../lib/utils"
+
+const Input = React.forwardRef(({ className, type, ...props }, ref) => {
   return (
     <input
-      className={`border border-[#2e4d3a] rounded-xl px-4 py-2 bg-[#1e2d23]/80 text-base text-[#eaf7f0] placeholder:text-[#a3bdb3] focus:border-accent focus:ring-2 focus:ring-accent/40 focus:outline-none transition-all duration-200 shadow-sm focus:shadow-lg ${className}`}
-      {...rest}
+      type={type}
+      className={cn(
+        "flex h-12 w-full rounded-xl border-2 border-surface-alt bg-surface px-4 py-2 text-base text-text-base placeholder:text-muted transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus:border-accent focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      ref={ref}
+      {...props}
     />
-  );
-} 
+  )
+})
+Input.displayName = "Input"
+
+export { Input } 

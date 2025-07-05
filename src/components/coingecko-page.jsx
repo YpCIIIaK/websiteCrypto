@@ -103,8 +103,8 @@ function CoinGeckoPage() {
       {/* Market Stats Banner */}
       <div className="bg-gradient-to-r from-white to-emerald-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-wrap items-center justify-between text-sm gap-2">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
               <div className="flex items-center space-x-2">
                 <span className="text-gray-600">Cryptos:</span>
                 <span className="font-semibold">2.4M+</span>
@@ -115,12 +115,12 @@ function CoinGeckoPage() {
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-gray-600">Market Cap:</span>
-                <span className="font-semibold">$1,674,234,567,890</span>
+                <span className="font-semibold">$1.67T</span>
                 <span className="text-green-600 font-semibold">+2.3%</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-gray-600">24h Vol:</span>
-                <span className="font-semibold">$89,234,567,890</span>
+                <span className="font-semibold">$89.23B</span>
                 <span className="text-red-600 font-semibold">-5.1%</span>
               </div>
               <div className="flex items-center space-x-2">
@@ -142,21 +142,12 @@ function CoinGeckoPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Logo and Search */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-teal-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🦎</span>
-            </div>
-            <span className="text-3xl font-bold text-gray-900 cursor-pointer" onClick={() => navigate("/")}>
-              CoinGecko
-            </span>
-          </div>
-
+        <div className="flex items-center justify-end mb-6">
           <div className="relative search-container">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <Input
               placeholder="Search coins, exchanges, NFT collections..."
-              className="pl-12 w-96 h-12 bg-white/90 backdrop-blur-sm border-2 border-emerald-200 focus:border-green-500 focus:ring-2 focus:ring-green-500 text-lg"
+              className="pl-4 w-96 h-12 bg-white/90 backdrop-blur-sm border-2 border-emerald-200 focus:border-green-500 focus:ring-2 focus:ring-green-500 text-lg text-gray-900 caret-emerald-500"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setShowSuggestions(true)}

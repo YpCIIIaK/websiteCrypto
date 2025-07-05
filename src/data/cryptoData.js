@@ -1,5 +1,6 @@
 export const cryptoData = [
     {
+      id: "bitcoin",
       rank: 1,
       name: "Bitcoin",
       symbol: "BTC",
@@ -12,6 +13,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "ethereum",
       rank: 2,
       name: "Ethereum",
       symbol: "ETH",
@@ -24,6 +26,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "tether",
       rank: 3,
       name: "Tether USDt",
       symbol: "USDT",
@@ -36,6 +39,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "bnb",
       rank: 4,
       name: "BNB",
       symbol: "BNB",
@@ -48,6 +52,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "solana",
       rank: 5,
       name: "Solana",
       symbol: "SOL",
@@ -60,6 +65,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "xrp",
       rank: 6,
       name: "XRP",
       symbol: "XRP",
@@ -72,6 +78,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "usd-coin",
       rank: 7,
       name: "USDC",
       symbol: "USDC",
@@ -84,6 +91,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "cardano",
       rank: 8,
       name: "Cardano",
       symbol: "ADA",
@@ -96,6 +104,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "dogecoin",
       rank: 9,
       name: "Dogecoin",
       symbol: "DOGE",
@@ -108,6 +117,7 @@ export const cryptoData = [
       icon: "/placeholder.svg?height=24&width=24",
     },
     {
+      id: "avalanche",
       rank: 10,
       name: "Avalanche",
       symbol: "AVAX",

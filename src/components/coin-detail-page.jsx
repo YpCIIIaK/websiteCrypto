@@ -19,8 +19,26 @@ const timeframes = {
 }
 
 export default function CoinDetailPage() {
-  const { symbol } = useParams()
-  const coin = cryptoData.find(c => c.symbol.toLowerCase() === symbol.toLowerCase()) || cryptoData[0]
+  const { coinId } = useParams()
+  
+  if (!coinId) {
+    // Render a loading state or nothing while coinId is not available
+    return <div className="text-center p-8">Loading...</div>;
+  }
+
+  let coin = cryptoData.find(c => c.id && c.id.toLowerCase() === coinId.toLowerCase())
+
+  if (!coin) {
+    coin = {
+      id: coinId,
+      name: coinId.charAt(0).toUpperCase() + coinId.slice(1),
+      symbol: coinId.toUpperCase(),
+      price: Math.random() * 1000,
+      marketCap: Math.random() * 1e12,
+      volume24h: Math.random() * 1e10,
+      icon: "/placeholder.svg?height=24&width=24",
+    }
+  }
 
   const [selectedTimeframe, setSelectedTimeframe] = useState("30D")
   const [alertPrice, setAlertPrice] = useState("")
@@ -39,10 +57,6 @@ export default function CoinDetailPage() {
   const trendPower = currentPrice ? Math.min(Math.abs((trendSlope / currentPrice) * 100) * 10, 100) : 0
   const volatility = Math.abs(parseFloat(priceChangePercent))
   
-  if (!coin) {
-    return <div className="text-center p-8">Coin not found</div>
-  }
-
   return (
     <div className="min-h-screen p-4 max-w-7xl mx-auto bg-slate-50">
       {/* Header */}

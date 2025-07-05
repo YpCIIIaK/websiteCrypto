@@ -18,6 +18,30 @@ export default {
     },
     extend: {
       colors: {
+        brand: {
+          DEFAULT: "#245135",
+          dark: "#183923",
+          light: "#2F7048",
+        },
+        surface: {
+          DEFAULT: "#0E1C15",
+          alt: "#142A1F",
+        },
+        success: "#22C55E",
+        danger: "#EF4444",
+        info: "#3B82F6",
+        warn: "#FACC15",
+        text: {
+          base: "#EAF7F0",
+          muted: "#A3BDB3",
+        },
+        chart: {
+          blue: "#3B82F6",
+          purple: "#A855F7",
+          orange: "#F97316",
+          green: "#10B981",
+          yellow: "#EAB308",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -46,7 +46,7 @@ const WhatIsVortanSection = () => {
       </motion.p>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="relative z-10">
         <a href="#waitlist" style={{ textDecoration: 'none' }}>
-          <Button text="Get early access" />
+          <Button>Get early access</Button>
         </a>
       </motion.div>
     </section>

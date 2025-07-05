@@ -8,7 +8,7 @@ import PricingSummarySection from '../../components/sections/PricingSummarySecti
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-brand text-base">
+    <div className="bg-brand text-text-base">
       <WhatIsVortanSection />
       <ProductFeaturesSection />
       <WhoIsForSection />

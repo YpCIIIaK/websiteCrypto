@@ -211,7 +211,7 @@ export default function Settings() {
                       <TestTube className="h-4 w-4 mr-1" />
                       Тест подключения
                     </Button>
-                    <Button size="sm" className="bg-accent hover:bg-accent-light">
+                    <Button size="sm">
                       <Save className="h-4 w-4 mr-1" />
                       Сохранить
                     </Button>

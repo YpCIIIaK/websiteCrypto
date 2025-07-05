@@ -7,7 +7,7 @@ import BotDetails from "../../bots/bot-details.jsx";
 import Portfolio from "../../bots/portfolio.jsx";
 import TradingHistory from "../../bots/trading-history.jsx";
 import Settings from "../../bots/settings.jsx";
-import Docs from "../docs/Docs.jsx";
+// import Docs from "../docs/Docs.jsx";
 
 const mockBots = [
   {
@@ -117,15 +117,15 @@ const Bots = () => {
         return <TradingHistory bots={bots} />;
       case "settings":
         return <Settings />;
-      case "docs":
-        return <Docs />;
+      // case "docs":
+      //   return <Docs />;
       default:
         return <Dashboard bots={bots} />;
     }
   };
 
   return (
-    <div className="flex h-screen bg-surface text-base">
+    <div className="flex h-screen bg-surface text-text-base">
       <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
       <main className="flex-1 overflow-auto">{renderPage()}</main>
     </div>

@@ -37,7 +37,7 @@ export default function TradingBots({ bots, onSelectBot, onUpdateBot, onCreateBo
           </h1>
           <p className="text-muted mt-2">Управление вашими криптотрейдинговыми ботами</p>
         </div>
-        <Button onClick={onCreateBot} className="bg-accent hover:bg-accent-light">
+        <Button onClick={onCreateBot}>
           <Plus className="h-4 w-4 mr-2" />
           Создать бота
         </Button>
@@ -58,21 +58,21 @@ export default function TradingBots({ bots, onSelectBot, onUpdateBot, onCreateBo
           <Button
             variant={filterStatus === "all" ? "default" : "outline"}
             onClick={() => setFilterStatus("all")}
-            className="bg-surface border-surface-alt"
+            className="border-surface-alt"
           >
             Все
           </Button>
           <Button
             variant={filterStatus === "active" ? "default" : "outline"}
             onClick={() => setFilterStatus("active")}
-            className="bg-surface border-surface-alt"
+            className="border-surface-alt"
           >
             Активные
           </Button>
           <Button
             variant={filterStatus === "paused" ? "default" : "outline"}
             onClick={() => setFilterStatus("paused")}
-            className="bg-surface border-surface-alt"
+            className="border-surface-alt"
           >
             На паузе
           </Button>
@@ -201,7 +201,7 @@ export default function TradingBots({ bots, onSelectBot, onUpdateBot, onCreateBo
           <Bot className="h-16 w-16 text-gray-600 mx-auto mb-4" />
           <p className="text-muted text-lg">Боты не найдены</p>
           <p className="text-muted text-sm mt-2">Попробуйте изменить параметры поиска или создайте нового бота</p>
-          <Button onClick={onCreateBot} className="mt-4 bg-accent hover:bg-accent-light">
+          <Button onClick={onCreateBot} className="mt-4">
             <Plus className="h-4 w-4 mr-2" />
             Создать первого бота
           </Button>

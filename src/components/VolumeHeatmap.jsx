@@ -1,23 +1,69 @@
 import { Activity } from 'lucide-react'
 
+// The maximum number of cells we want to display.
+// If data points exceed this, we will aggregate them.
+const MAX_CELLS = 100;
+
+const aggregateData = (data, targetSize) => {
+  if (data.length <= targetSize) {
+    return data;
+  }
+
+  const aggregated = [];
+  const chunkSize = data.length / targetSize;
+
+  for (let i = 0; i < targetSize; i++) {
+    const chunkStart = Math.floor(i * chunkSize);
+    const chunkEnd = Math.floor((i + 1) * chunkSize);
+    const chunk = data.slice(chunkStart, chunkEnd);
+
+    if (chunk.length === 0) continue;
+
+    const totalVolume = chunk.reduce((sum, d) => sum + d.volume, 0);
+    const startPrice = chunk[0].price;
+    const endPrice = chunk[chunk.length - 1].price;
+    const date = chunk[chunk.length - 1].date;
+    
+    // The price for the aggregated cell will be the end price of the chunk
+    const price = endPrice;
+
+    aggregated.push({
+      date,
+      price,
+      volume: totalVolume,
+      // We will calculate price change based on the previous aggregated cell
+    });
+  }
+  return aggregated;
+};
+
+
 export default function VolumeHeatmap({ data }) {
-  const maxVolume = Math.max(...data.map((d) => d.volume))
+  if (!data || data.length === 0) {
+    return <div>Loading heatmap...</div>;
+  }
+
+  const processedData = aggregateData(data, MAX_CELLS);
+  const maxVolume = Math.max(...processedData.map((d) => d.volume).filter(v => isFinite(v)), 1);
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm">
+    <div className="bg-white rounded-md p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <h3 className="flex items-center gap-2 text-lg font-semibold"><Activity size={20} /> Volume Heatmap</h3>
       </div>
       
-      <div className="flex flex-wrap gap-0.5 p-4 max-w-full">
-        {data.slice(-75).map((entry, index) => {
+      <div 
+        className="grid gap-px"
+        style={{ gridTemplateColumns: `repeat(${processedData.length}, minmax(0, 1fr))` }}
+      >
+        {processedData.map((entry, index) => {
           const priceChangePercent = index > 0
-            ? ((entry.price - data[data.indexOf(entry) - 1]?.price) / data[data.indexOf(entry) - 1]?.price) * 100
+            ? ((entry.price - processedData[index - 1].price) / processedData[index - 1].price) * 100
             : 0
 
           const volumeIntensity = entry.volume / maxVolume
           const isPositive = priceChangePercent >= 0
-          const opacity = Math.max(volumeIntensity, 0.1)
+          const opacity = Math.max(volumeIntensity, 0.15)
 
           const backgroundColor = isPositive
             ? `rgba(34, 197, 94, ${opacity})`
@@ -26,16 +72,12 @@ export default function VolumeHeatmap({ data }) {
           return (
             <div
               key={index}
-              className="group relative w-3 h-3 rounded-sm cursor-pointer transition-all hover:scale-150 hover:z-10"
+              className="group relative h-6 rounded-sm cursor-pointer transition-all hover:z-10"
               style={{ backgroundColor }}
-              title={`Date: ${new Date(entry.date).toLocaleDateString()}
-Volume: ${(entry.volume / 1000000).toFixed(1)}M
-Price: $${entry.price.toFixed(2)}
-Change: ${priceChangePercent >= 0 ? '+' : ''}${priceChangePercent.toFixed(2)}%`}
             >
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-black text-white text-xs rounded-md opacity-0 transition-opacity whitespace-nowrap z-20 pointer-events-none group-hover:opacity-100">
                 <div>{new Date(entry.date).toLocaleDateString()}</div>
-                <div>Vol: {(entry.volume / 1000000).toFixed(1)}M</div>
+                <div>Vol: ${(entry.volume / 1000000).toFixed(1)}M</div>
                 <div>
                   ${entry.price.toFixed(2)} ({priceChangePercent >= 0 ? '+' : ''}
                   {priceChangePercent.toFixed(2)}%)
