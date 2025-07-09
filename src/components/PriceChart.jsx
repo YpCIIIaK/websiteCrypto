@@ -96,7 +96,7 @@ export default function PriceChart({
         if (e.activePayload && e.activePayload.length) {
             const payload = e.activePayload[0].payload;
             setCrosshair({
-                time: payload.time,
+                time: payload.bucket, // Changed from time
                 price: payload.close,
             });
         }
@@ -152,7 +152,7 @@ export default function PriceChart({
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis dataKey="time" tickFormatter={formatTime} tick={{ fill: '#374151', fontSize: 12 }} stroke="#d1d5db" />
+                    <XAxis dataKey="bucket" tickFormatter={formatTime} tick={{ fill: '#374151', fontSize: 12 }} stroke="#d1d5db" />
                     <YAxis
                         orientation="right"
                         yAxisId="right"
@@ -204,8 +204,8 @@ export default function PriceChart({
                             stroke="#dc2626"
                             strokeDasharray="4 4"
                             segment={[
-                                { x: data[0]?.time, y: data[0]?.close },
-                                { x: data[data.length - 1]?.time, y: data[data.length - 1]?.close },
+                                { x: data[0]?.bucket, y: data[0]?.close }, // Changed from time
+                                { x: data[data.length - 1]?.bucket, y: data[data.length - 1]?.close }, // Changed from time
                             ]}
                         />
                     )}

@@ -7,7 +7,7 @@ import TrendCard from './TrendCard'
 import VolatilityMeter from './VolatilityMeter'
 import VolumeMeter from './VolumeMeter'
 import StockInfo from './StockInfo'
-import { generatePriceData } from '../utils/dataGenerator'
+import { generateChartData } from '../utils/dataGenerator'
 import { cryptoData } from '../data/cryptoData'
 
 const timeframes = {
@@ -47,7 +47,8 @@ export default function CoinDetailPage() {
   const [showMovingAverage, setShowMovingAverage] = useState(true)
   const [showTrend, setShowTrend] = useState(false)
 
-  const data = generatePriceData(timeframes[selectedTimeframe], coin.price)
+  const chartData = generateChartData(coin.symbol, selectedTimeframe)
+  const data = chartData.data
   const currentPrice = data[data.length - 1]?.close || 0
   const previousPrice = data[data.length - 2]?.close || 0
   const priceChange = currentPrice - previousPrice

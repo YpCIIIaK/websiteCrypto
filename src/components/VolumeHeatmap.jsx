@@ -5,8 +5,13 @@ import { Activity } from 'lucide-react'
 const MAX_CELLS = 100;
 
 const aggregateData = (data, targetSize) => {
+  // If the data is already smaller than the target, just remap it to the expected format
   if (data.length <= targetSize) {
-    return data;
+    return data.map(d => ({
+      bucket: d.bucket,
+      close: d.close,
+      volume: d.volume,
+    }));
   }
 
   const aggregated = [];
@@ -20,16 +25,16 @@ const aggregateData = (data, targetSize) => {
     if (chunk.length === 0) continue;
 
     const totalVolume = chunk.reduce((sum, d) => sum + d.volume, 0);
-    const startPrice = chunk[0].price;
-    const endPrice = chunk[chunk.length - 1].price;
-    const date = chunk[chunk.length - 1].date;
+    const startPrice = chunk[0].close; // Changed from price
+    const endPrice = chunk[chunk.length - 1].close; // Changed from price
+    const date = chunk[chunk.length - 1].bucket; // Changed from date
     
     // The price for the aggregated cell will be the end price of the chunk
     const price = endPrice;
 
     aggregated.push({
-      date,
-      price,
+      bucket: date, // Changed from date
+      close: price, // Changed from price
       volume: totalVolume,
       // We will calculate price change based on the previous aggregated cell
     });
@@ -58,7 +63,7 @@ export default function VolumeHeatmap({ data }) {
       >
         {processedData.map((entry, index) => {
           const priceChangePercent = index > 0
-            ? ((entry.price - processedData[index - 1].price) / processedData[index - 1].price) * 100
+            ? ((entry.close - processedData[index - 1].close) / processedData[index - 1].close) * 100
             : 0
 
           const volumeIntensity = entry.volume / maxVolume
@@ -76,10 +81,10 @@ export default function VolumeHeatmap({ data }) {
               style={{ backgroundColor }}
             >
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-black text-white text-xs rounded-md opacity-0 transition-opacity whitespace-nowrap z-20 pointer-events-none group-hover:opacity-100">
-                <div>{new Date(entry.date).toLocaleDateString()}</div>
+                <div>{new Date(entry.bucket).toLocaleDateString()}</div>
                 <div>Vol: ${(entry.volume / 1000000).toFixed(1)}M</div>
                 <div>
-                  ${entry.price.toFixed(2)} ({priceChangePercent >= 0 ? '+' : ''}
+                  ${entry.close.toFixed(2)} ({priceChangePercent >= 0 ? '+' : ''}
                   {priceChangePercent.toFixed(2)}%)
                 </div>
               </div>
