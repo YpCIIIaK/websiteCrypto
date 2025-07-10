@@ -11,7 +11,7 @@ import { ThemeProvider } from "./components/theme-provider";
 
 const App = () => {
     return (
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="light">
             <Router>
                 <div className="min-h-screen">
                     <Navbar />
